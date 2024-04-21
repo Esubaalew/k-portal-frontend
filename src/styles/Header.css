@@ -39,3 +39,42 @@
     border-radius: 20px; 
     font-weight: bold; 
   }
+
+@media (max-width: 768px) {
+    .Header {
+      flex-direction: column; 
+      padding: 0.5rem; 
+    }
+  
+    .Header h1 {
+      font-size: 1.5rem; 
+      margin-bottom: 0.5rem; 
+    }
+  
+    .header-icon {
+
+      font-size: 1.5rem;
+    }
+  
+    .Header nav ul {
+      justify-content: center; 
+      flex-wrap: wrap; 
+      margin-bottom: 0.5rem; 
+    }
+  
+    .Header nav ul li {
+      margin-right: 0.5rem; 
+      margin-bottom: 0.5rem; 
+    }
+  
+    .Header nav ul li a {
+      font-size: 1rem;
+    }
+  
+    .get-started {
+      padding: 0.5rem 1rem; 
+      font-size: 1rem; 
+      margin-top: 0.5rem;
+    }
+  }
+  

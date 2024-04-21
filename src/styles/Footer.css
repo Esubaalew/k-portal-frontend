@@ -33,3 +33,30 @@
     text-decoration: none;
   }
   
+
+@media (max-width: 768px) {
+    .Footer {
+      flex-direction: column; 
+      padding: 0.5rem; 
+      height: auto;
+    }
+  
+    .Footer p {
+      font-size: 1rem; 
+      margin-bottom: 0.5rem;
+    }
+  
+    .Footer nav ul {
+      justify-content: center; 
+      flex-wrap: wrap; 
+    }
+  
+    .Footer nav ul li {
+      margin: 0.5rem; 
+    }
+  
+    .Footer nav ul li a {
+      font-size: 0.9rem; 
+    }
+  }
+  
