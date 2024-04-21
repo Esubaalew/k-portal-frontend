@@ -1,0 +1,59 @@
+.Card {
+    background-color: white;
+    color: black;
+    margin: 1rem;
+    padding: 1.5rem;
+    width: 400px;
+    height: 250px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+  }
+  
+  .card-header {
+    display: flex;
+    align-items: center;
+  }
+  
+  .language-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: large;
+  }
+  
+  .icon {
+    margin-right: 15px;
+    font-size: 2.5rem;
+  }
+  
+  .shorty {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: -20px;
+  }
+  
+  .learn-more-container {
+    text-align: right;
+  }
+  
+  .learn-more {
+    background-color: #007bff;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .card-description {
+    font-size: 1rem;
+    color: #333; 
+    margin-top: 0.5rem; 
+    flex-grow: 1; 
+    overflow: auto; 
+  }
+  

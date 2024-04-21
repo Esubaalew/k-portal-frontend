@@ -1,0 +1,12 @@
+.MainContent {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 1rem;
+    background-color: #f0f0f0;
+    flex-grow: 1;
+    min-height: calc(100vh - 100px);
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 80px;
+  }
