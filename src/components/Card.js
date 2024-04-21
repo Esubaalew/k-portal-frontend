@@ -15,7 +15,33 @@ function Card({ name, shorty, subtitle, description })  {
       'Swift': '#FA7343',
       'Kotlin': '#0095D5',
       'TypeScript': '#007ACC' ,
-    'Go': '#00ADD8'
+      'Go': '#00ADD8',
+      'Rust': '#000000',
+      'R': '#276DC3',
+      'Scala': '#DC322F',
+      'Perl': '#39457E',
+      'Haskell': '#5E5086',
+      'Lua': '#000080',
+      'Shell': '#89E051',
+      'PowerShell': '#012456',
+      'Assembly': '#6E4C13',
+      'Dart': '#00B4AB',
+      'Elixir': '#6e4a7e',
+      'Clojure': '#5881d8',
+      'Objective-C': '#438eff',
+      'COBOL': '#555555',
+      'Lua': '#000080',
+      'Perl': '#39457E',
+      "Prolog": "#74283c",
+      "Scheme": "#1e4aec",
+      "Smalltalk": "#596706",
+      'Erlang': '#A90533',
+      'Ada': '#02f88c',
+      'Lisp': '#3fb68b',
+      "Visual Basic": "#945db7",
+
+      
+
     };
     return (
         <div className="Card">
