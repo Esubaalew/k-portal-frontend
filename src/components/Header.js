@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLaptopCode } from '@fortawesome/free-solid-svg-icons'; // Choose an appropriate icon
 import '../styles/Header.css';
+import { Link } from 'react-router-dom';
 
 function Header() {
   return (
@@ -17,7 +18,7 @@ function Header() {
           <li><a href="/community">Community</a></li>
         </ul>
       </nav>
-      <button className="get-started">Get Started</button>
+      <Link to="/profile" className='get-started' >Get Started</Link>
     </header>
   );
 }

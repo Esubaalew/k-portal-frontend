@@ -6,7 +6,7 @@ function MainContent() {
   const languages = [
     { 
       name: 'JavaScript', 
-      shorty: 'The scripting standard for webpages.', // Add a shorty for each language
+      shorty: 'The scripting standard for webpages.', 
       description: 'JavaScript is a popular programming language that is primarily used for building interactive web applications.' 
     },
     { 
