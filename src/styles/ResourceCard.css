@@ -1,0 +1,65 @@
+.resource-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #f0f0f0;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #555;
+}
+
+.username {
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.time {
+  font-size: 14px;
+  color: #777;
+}
+
+.resource-details {
+  flex: 1;
+}
+
+.caption {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.url {
+  color: #007bff;
+  font-size: 16px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.file-info {
+  margin-top: 10px;
+}
+
+.additional-info {
+  margin-top: 10px;
+  color: #777;
+  font-size: 14px;
+}

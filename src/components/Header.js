@@ -12,7 +12,9 @@ function Header() {
       </h1>
       <nav>
         <ul>
-          <li><a href="/languages">Languages</a></li>
+          <li>
+            <Link to="/resources">Resources</Link>
+          </li>
           <li><a href="/frameworks">Frameworks</a></li>
           <li><a href="/tools">Tools</a></li>
           <li>

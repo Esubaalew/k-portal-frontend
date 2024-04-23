@@ -1,0 +1,27 @@
+.resource-list-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  overflow: auto; 
+}
+
+.resource-list {
+  display: grid;
+  grid-template-columns: 1fr; 
+  gap: 20px;
+  padding: 20px; 
+  max-width: 1200px;
+  width: 700px; 
+  margin: 0 auto; 
+}
+
+
+
+
+@media (max-width: 768px) {
+  .resource-list {
+    width: 90%; 
+    padding: 10px; 
+  }
+}
