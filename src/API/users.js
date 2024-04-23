@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// Function to get a user by ID
 const getUserById = async (userId) => {
     try {
         const response = await axios.get(`http://localhost:8000/api/users/${userId}/`);
@@ -9,5 +10,14 @@ const getUserById = async (userId) => {
         throw new Error('Error fetching user');
     }
 };
-
-export { getUserById };
+// Function to get all users
+const getAllUsers = async () => {
+    try {
+        const response = await axios.get('http://localhost:8000/api/users/');
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching users:', error.response.data);
+        throw new Error('Error fetching users');
+    }
+};
+export { getUserById, getAllUsers };

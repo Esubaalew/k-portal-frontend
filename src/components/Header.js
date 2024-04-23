@@ -15,7 +15,9 @@ function Header() {
           <li><a href="/languages">Languages</a></li>
           <li><a href="/frameworks">Frameworks</a></li>
           <li><a href="/tools">Tools</a></li>
-          <li><a href="/community">Community</a></li>
+          <li>
+            <Link to="/community">Community</Link>
+          </li>
         </ul>
       </nav>
       <Link to="/profile" className='get-started' >Get Started</Link>
