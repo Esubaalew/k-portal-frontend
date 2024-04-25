@@ -58,8 +58,43 @@
   margin-top: 10px;
 }
 
+.file-info .file-metadata {
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  padding: 10px;
+}
+
+.file-info .file-metadata p {
+  margin: 0;
+}
+
+.file-info .download-button {
+  margin-top: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.file-info .download-button:hover {
+  background-color: #0056b3;
+}
+
+.photo-info {
+  margin-top: 10px;
+}
+
+.photo {
+  max-width: 100%;
+  border-radius: 8px; 
+}
+
 .additional-info {
   margin-top: 10px;
   color: #777;
   font-size: 14px;
 }
+
+

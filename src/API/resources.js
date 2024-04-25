@@ -3,7 +3,7 @@ import axios from "axios";
 // Function to get all resources
 const getAllResources = async () => {
     try {
-        const response = await axios.get("http://localhost:8000/api/link-resources/");
+        const response = await axios.get("http://localhost:8000/api/resources/");
         return response.data;
     } catch (error) {
         console.error("Error fetching resources:", error.response.data);
@@ -15,7 +15,7 @@ const getAllResources = async () => {
 
 const getResourceById = async (resourceId) => {
     try {
-        const response = await axios.get(`http://localhost:8000/api/link-resources/${resourceId}/`);
+        const response = await axios.get(`http://localhost:8000/api/resources/${resourceId}/`);
         return response.data;
     } catch (error) {
         console.error('Error fetching resource:', error.response.data);
@@ -23,4 +23,15 @@ const getResourceById = async (resourceId) => {
     }
 }
 
-export { getAllResources, getResourceById };
+// Function to get metadata for a resource by ID
+const getMetadataForResource = async (resourceId) => {
+    try {
+        const response = await axios.get(`http://localhost:8000/api/resources/${resourceId}/metadata/`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching resource metadata:', error.response.data);
+        throw new Error('Error fetching resource metadata');
+    }
+};
+
+export { getAllResources, getResourceById, getMetadataForResource };
