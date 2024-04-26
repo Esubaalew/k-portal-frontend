@@ -12,6 +12,11 @@ const SignIn = () => {
   const navigate = useNavigate();
 
   const handleSignIn = async () => {
+    if (!userData.username || !userData.password) {
+      setError('Please enter both username and password.');
+      return;
+    }
+  
     try {
       const response = await signIn(userData);
       console.log('Signed in successfully:', response);
@@ -21,7 +26,7 @@ const SignIn = () => {
       setError('Invalid credentials. Please try again.');
     }
   };
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
