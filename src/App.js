@@ -7,6 +7,7 @@ import ResourceList from './components/ResourceList';
 import { getUserById, getAllUsers } from './API/users'; 
 import { getAllResources } from './API/resources';
 import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
 import Success from './components/Success';
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
       <Routes>
         <Route path="/" element={ <Home/>} />
         <Route path="/in" element={ <SignIn/>} />
+        <Route path="/signup" element={ <SignUp/>} />
         <Route path="/profile" element={<ProfilePage profileData={profileData} />} />
         <Route path="/community" element={<Profiles users={allUsers} />} />
         <Route path="/resources" element={<ResourceList resources={allResources} />} />

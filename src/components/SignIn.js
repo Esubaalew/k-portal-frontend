@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { signIn } from '../API/auth';
 import '../styles/SignIn.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const SignIn = () => {
   const [userData, setUserData] = useState({
@@ -40,6 +40,7 @@ const SignIn = () => {
         <input type="password" name="password" placeholder="Password" onChange={handleChange} className="input-field" />
         {error && <p className="error-message">{error}</p>}
         <button onClick={handleSignIn} className="signin-button">Sign In</button>
+        <p className="register-link">Not Registered Yet? <Link to="/signup">Register</Link></p>
       </div>
     </div>
   );
