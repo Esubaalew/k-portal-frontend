@@ -31,10 +31,10 @@ const SignIn = () => {
     <div className="signin-container">
       <h2>Sign In</h2>
       <div className="signin-form">
-        <input type="text" name="username" placeholder="Username" onChange={handleChange} />
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} />
+        <input type="text" name="username" placeholder="Username" onChange={handleChange} className="input-field" />
+        <input type="password" name="password" placeholder="Password" onChange={handleChange} className="input-field" />
         {error && <p className="error-message">{error}</p>}
-        <button onClick={handleSignIn}>Sign In</button>
+        <button onClick={handleSignIn} className="signin-button">Sign In</button>
       </div>
     </div>
   );
