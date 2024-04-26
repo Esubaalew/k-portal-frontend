@@ -22,7 +22,7 @@ function Header() {
           </li>
         </ul>
       </nav>
-      <Link to="/profile" className='get-started' >Get Started</Link>
+      <Link to="/in" className='get-started' >Get Started</Link>
     </header>
   );
 }

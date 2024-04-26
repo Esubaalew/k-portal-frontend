@@ -6,6 +6,8 @@ import Profiles from './components/ProfileList';
 import ResourceList from './components/ResourceList';
 import { getUserById, getAllUsers } from './API/users'; 
 import { getAllResources } from './API/resources';
+import SignIn from './components/SignIn';
+import Success from './components/Success';
 
 function App() {
   const [profileData, setProfileData] = useState(null);
@@ -49,10 +51,13 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={ <Home/>} />
+        <Route path="/in" element={ <SignIn/>} />
         <Route path="/profile" element={<ProfilePage profileData={profileData} />} />
         <Route path="/community" element={<Profiles users={allUsers} />} />
         <Route path="/resources" element={<ResourceList resources={allResources} />} />
+        <Route path="/success" element={<Success/>} />
+        
       </Routes>
     </Router>
   );

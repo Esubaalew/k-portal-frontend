@@ -1,0 +1,17 @@
+.success-container {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #28a745; 
+    border-radius: 5px;
+    background-color: #d4edda; 
+  }
+  
+  .success-container h2 {
+    color: #28a745;
+  }
+  
+  .success-container p {
+    color: #155724; 
+  }
+  
