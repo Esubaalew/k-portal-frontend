@@ -14,7 +14,8 @@ function App() {
   const [profileData, setProfileData] = useState(null);
   const [allUsers, setAllUsers] = useState([]);
   const [allResources, setAllResources] = useState([]);
-  const accessToken = JSON.parse(localStorage.getItem('user')).access;
+  const userData = JSON.parse(localStorage.getItem('user'));
+  const accessToken = userData ? userData.access : null;
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -38,8 +39,10 @@ function App() {
 
     const fetchAllResources = async () => {
       try {
-        const resources = await getAllResources(accessToken);
-        setAllResources(resources);
+        if (accessToken) {
+          const resources = await getAllResources(accessToken);
+          setAllResources(resources);
+        }
       } catch (error) {
         console.error('Error fetching all resources:', error.message);
       }
