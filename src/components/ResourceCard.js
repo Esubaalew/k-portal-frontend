@@ -8,13 +8,16 @@ const ResourceCard = ({ resource }) => {
   const { owner, caption, url, file, photo, language, topic, date_shared, date_modified } = resource;
   const [ownerData, setOwnerData] = useState(null);
   const [fileMetadata, setFileMetadata] = useState(null);
-  const accessToken = JSON.parse(localStorage.getItem('user')).access;
+  const userData = JSON.parse(localStorage.getItem('user'));
+  const accessToken = userData ? userData.access : null;
 
   useEffect(() => {
     const fetchOwnerData = async () => {
       try {
-        const user = await getUserById(owner, accessToken);
-        setOwnerData(user);
+        if (accessToken) {
+          const user = await getUserById(owner, accessToken);
+          setOwnerData(user);
+        }
       } catch (error) {
         console.error('Error fetching owner data:', error.message);
       }
@@ -25,7 +28,7 @@ const ResourceCard = ({ resource }) => {
 
   useEffect(() => {
     const fetchFileMetadata = async () => {
-      if (file) { 
+      if (file && accessToken) { 
         try {
           const metadata = await getMetadataForResource(resource.id, accessToken);
           setFileMetadata(metadata);
