@@ -19,3 +19,17 @@ export const signIn = async (userData) => {
     throw error.response.data;
   }
 };
+
+// Function to get details of the logged-in user
+export const getLoggedInUser = async (accessToken) => {
+  try {
+    const response = await axios.get('http://localhost:8000/api/loggedin/', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};

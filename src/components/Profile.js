@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/Profil.css';
 
 const Profile = ({ user }) => {
-  const { id, first_name, last_name, bio, username } = user;
+  const { first_name, last_name, bio, username } = user;
   const initials = `${first_name[0]}${last_name[0]}`;
 
   return (
