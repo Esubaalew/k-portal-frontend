@@ -1,32 +1,43 @@
 import axios from "axios";
 
 // Function to get all resources
-const getAllResources = async () => {
+const getAllResources = async (accessToken) => {
     try {
-        const response = await axios.get("http://localhost:8000/api/resources/");
+        const response = await axios.get("http://localhost:8000/api/resources/", {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
         return response.data;
     } catch (error) {
         console.error("Error fetching resources:", error.response.data);
         throw new Error("Error fetching resources");
     }
-    }
+};
 
 // Function to get a resource by ID
-
-const getResourceById = async (resourceId) => {
+const getResourceById = async (resourceId, accessToken) => {
     try {
-        const response = await axios.get(`http://localhost:8000/api/resources/${resourceId}/`);
+        const response = await axios.get(`http://localhost:8000/api/resources/${resourceId}/`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
         return response.data;
     } catch (error) {
         console.error('Error fetching resource:', error.response.data);
         throw new Error('Error fetching resource');
     }
-}
+};
 
 // Function to get metadata for a resource by ID
-const getMetadataForResource = async (resourceId) => {
+const getMetadataForResource = async (resourceId, accessToken) => {
     try {
-        const response = await axios.get(`http://localhost:8000/api/resources/${resourceId}/metadata/`);
+        const response = await axios.get(`http://localhost:8000/api/resources/${resourceId}/metadata/`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
         return response.data;
     } catch (error) {
         console.error('Error fetching resource metadata:', error.response.data);

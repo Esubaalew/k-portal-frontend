@@ -7,12 +7,13 @@ import { getMetadataForResource } from '../API/resources';
 const ResourceCard = ({ resource }) => {
   const { owner, caption, url, file, photo, language, topic, date_shared, date_modified } = resource;
   const [ownerData, setOwnerData] = useState(null);
-  const [fileMetadata, setFileMetadata] = useState(null); 
+  const [fileMetadata, setFileMetadata] = useState(null);
+  const accessToken = JSON.parse(localStorage.getItem('user')).access;
 
   useEffect(() => {
     const fetchOwnerData = async () => {
       try {
-        const user = await getUserById(owner);
+        const user = await getUserById(owner, accessToken);
         setOwnerData(user);
       } catch (error) {
         console.error('Error fetching owner data:', error.message);
@@ -20,13 +21,13 @@ const ResourceCard = ({ resource }) => {
     };
 
     fetchOwnerData();
-  }, [owner]);
+  }, [owner, accessToken, setOwnerData]);
 
   useEffect(() => {
     const fetchFileMetadata = async () => {
       if (file) { 
         try {
-          const metadata = await getMetadataForResource(resource.id);
+          const metadata = await getMetadataForResource(resource.id, accessToken);
           setFileMetadata(metadata);
         } catch (error) {
           console.error('Error fetching file metadata:', error.message);
@@ -35,7 +36,7 @@ const ResourceCard = ({ resource }) => {
     };
   
     fetchFileMetadata();
-  }, [resource.id, file]); 
+  }, [resource.id, file, accessToken, setFileMetadata]); 
 
   // Helper function to truncate file name if too long
   const truncateFileName = (name) => {

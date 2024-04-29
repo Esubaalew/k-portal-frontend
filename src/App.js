@@ -14,12 +14,13 @@ function App() {
   const [profileData, setProfileData] = useState(null);
   const [allUsers, setAllUsers] = useState([]);
   const [allResources, setAllResources] = useState([]);
+  const accessToken = JSON.parse(localStorage.getItem('user')).access;
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const userId = 3; 
-        const user = await getUserById(userId);
+        const user = await getUserById(userId, accessToken);
         setProfileData(user);
       } catch (error) {
         console.error('Error fetching user data:', error.message);
@@ -28,7 +29,7 @@ function App() {
 
     const fetchAllUsers = async () => {
       try {
-        const users = await getAllUsers();
+        const users = await getAllUsers(accessToken);
         setAllUsers(users);
       } catch (error) {
         console.error('Error fetching all users:', error.message);
@@ -37,7 +38,7 @@ function App() {
 
     const fetchAllResources = async () => {
       try {
-        const resources = await getAllResources();
+        const resources = await getAllResources(accessToken);
         setAllResources(resources);
       } catch (error) {
         console.error('Error fetching all resources:', error.message);
@@ -47,7 +48,7 @@ function App() {
     fetchUserData();
     fetchAllUsers();
     fetchAllResources();
-  }, []);
+  }, [accessToken]);
 
   return (
     <Router>
@@ -59,7 +60,6 @@ function App() {
         <Route path="/community" element={<Profiles users={allUsers} />} />
         <Route path="/resources" element={<ResourceList resources={allResources} />} />
         <Route path="/success" element={<Success/>} />
-        
       </Routes>
     </Router>
   );
