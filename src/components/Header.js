@@ -16,7 +16,8 @@ function Header() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const accessToken = JSON.parse(localStorage.getItem('user')).access;
+        const Token = JSON.parse(localStorage.getItem('user'))
+        const accessToken = Token ? Token.access : null;
         const userData = await getLoggedInUser(accessToken);
         setUser(userData);
       } catch (error) {

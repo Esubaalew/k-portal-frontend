@@ -1,0 +1,40 @@
+.share-ui-card {
+    display: flex;
+    align-items:center;
+    justify-content:flex-start;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    margin: 1rem auto;
+    max-width: 90%;
+    position: relative;
+    top: 90px;
+    width: 500px;
+  }
+  
+  .left-component {
+    margin-right: 1rem;
+  }
+  
+  .right-component .share-input {
+    border: 2px solid #f1f1f1;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    outline: none;
+    width: calc(100% - 2rem);
+  }
+  
+  @media (max-width: 768px) {
+    .share-ui-card {
+      margin-top: 60px;
+    }
+  
+    .left-component,
+    .right-component .share-input {
+      box-sizing: border-box;
+      width: calc(100% - 2rem); 
+      margin-bottom: 0.5rem;
+    }
+  }
+  
