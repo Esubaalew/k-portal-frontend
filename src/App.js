@@ -63,6 +63,8 @@ function App() {
         <Route path="/community" element={<Profiles users={allUsers} />} />
         <Route path="/resources" element={<ResourceList resources={allResources} />} />
         <Route path="/success" element={<Success/>} />
+        <Route path="/user/:username" element={<ProfilePage />} />
+
       </Routes>
     </Router>
   );

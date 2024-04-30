@@ -42,9 +42,10 @@ function Header() {
         </ul>
       </nav>
       {user ? (
-        <Link to="/profile" className="profile-icon">
-          <ProfileIcon firstName={user.first_name} lastName={user.last_name} />
-        </Link>
+       <Link to={`/user/${user.username}`} className="profile-icon">
+       <ProfileIcon firstName={user.first_name} lastName={user.last_name} />
+       </Link>
+     
       ) : (
         <Link to="/in" className='get-started' >Get Started</Link>
       )}

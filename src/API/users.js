@@ -30,4 +30,20 @@ const getAllUsers = async (accessToken) => {
         throw new Error('Error fetching users');
     }
 };
-export { getUserById, getAllUsers };
+
+// Function to get a user by username
+const getUserByUsername = async (username, accessToken) => {
+    try {
+        const response = await axios.get(`http://localhost:8000/api/user/${username}/`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching user by username:', error.response.data);
+        throw new Error('Error fetching user by username');
+    }
+};
+
+export { getUserById, getAllUsers, getUserByUsername };

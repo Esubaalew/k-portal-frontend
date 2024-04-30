@@ -41,9 +41,9 @@ const ResourceCard = ({ resource }) => {
     fetchFileMetadata();
   }, [resource.id, file, accessToken, setFileMetadata]); 
 
-  // Helper function to truncate file name if too long
+ 
   const truncateFileName = (name) => {
-    const maxLength = 20; // Maximum characters to show
+    const maxLength = 20; 
     return name.length > maxLength ? name.slice(0, maxLength) + '...' : name;
   };
 
