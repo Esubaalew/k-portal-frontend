@@ -44,4 +44,17 @@
     color: #ff0000;
     margin-top: 5px;
   }
+
+  .log-link {
+    margin-top: 10px;
+    font-size: 14px;
+  }
   
+  .log-link a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .log-link a:hover {
+    text-decoration: underline;
+  }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { signUp } from '../API/auth';
 import '../styles/SignUp.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const SignUp = () => {
   const [userData, setUserData] = useState({
@@ -69,6 +69,7 @@ const SignUp = () => {
         <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} className="input-field" />
         {error && <p className="error-message">{error}</p>}
         <button onClick={handleSignUp} className="signup-button">Sign Up</button>
+        <p className="log-link">Have an account? <Link to="/in">Log in</Link></p>
       </div>
     </div>
   );
