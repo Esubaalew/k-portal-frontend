@@ -9,6 +9,7 @@
     min-height: calc(100vh - 100px);
     align-items: flex-start;
     margin-bottom: 80px; 
+    margin-top: 70px;
   }
 
   @media (max-width: 768px) {
