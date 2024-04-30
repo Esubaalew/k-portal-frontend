@@ -63,40 +63,30 @@
   font-weight: bold;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   .Header {
-    flex-direction: column;
-    padding: 0.5rem;
+    padding: 0.25rem;
   }
 
   .Header h1 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    font-size:1rem;
   }
 
   .header-icon {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 
   .Header nav ul {
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 0.5rem;
-  }
-
-  .Header nav ul li {
-    margin-right: 0.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
   }
 
   .Header nav ul li a {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   .get-started {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    margin-top: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
   }
 }
 

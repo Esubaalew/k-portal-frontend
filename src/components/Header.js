@@ -38,15 +38,13 @@ function Header() {
   return (
     <header className="Header">
       <h1>
-        <FontAwesomeIcon icon={faLaptopCode} className="header-icon" /> Programming Portal
+        <FontAwesomeIcon icon={faLaptopCode} className="header-icon" /> Portal
       </h1>
       <nav>
         <ul>
           <li>
             <Link to="/resources">Resources</Link>
           </li>
-          <li><a href="/frameworks">Frameworks</a></li>
-          <li><a href="/tools">Tools</a></li>
           <li>
             <Link to="/community">Community</Link>
           </li>
