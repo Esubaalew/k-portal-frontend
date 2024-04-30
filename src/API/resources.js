@@ -1,9 +1,11 @@
 import axios from "axios";
 
+const domain = "https://portal.esube.com.et/";
+
 // Function to get all resources
 const getAllResources = async (accessToken) => {
     try {
-        const response = await axios.get("http://localhost:8000/api/resources/", {
+        const response = await axios.get(`${domain}api/resources/`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
@@ -18,7 +20,7 @@ const getAllResources = async (accessToken) => {
 // Function to get a resource by ID
 const getResourceById = async (resourceId, accessToken) => {
     try {
-        const response = await axios.get(`http://localhost:8000/api/resources/${resourceId}/`, {
+        const response = await axios.get(`${domain}api/resources/${resourceId}/`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
@@ -33,7 +35,7 @@ const getResourceById = async (resourceId, accessToken) => {
 // Function to get metadata for a resource by ID
 const getMetadataForResource = async (resourceId, accessToken) => {
     try {
-        const response = await axios.get(`http://localhost:8000/api/resources/${resourceId}/metadata/`, {
+        const response = await axios.get(`${domain}api/resources/${resourceId}/metadata/`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
