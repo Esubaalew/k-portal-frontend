@@ -4,13 +4,15 @@
     justify-content:flex-start;
     background-color: #fff;
     border-radius: 10px;
+    border: 1px solid #ccc;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
     padding: 1rem;
     margin: 1rem auto;
     max-width: 90%;
     position: relative;
     top: 90px;
-    width: 500px;
+    width: 470px; 
+    margin-bottom: 100px;
   }
   
   .left-component {

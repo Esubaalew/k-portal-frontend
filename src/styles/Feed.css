@@ -1,0 +1,8 @@
+.feed-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 120px;
+    min-height: calc(100vh - 120px);
+    padding-bottom: 100px;
+  }

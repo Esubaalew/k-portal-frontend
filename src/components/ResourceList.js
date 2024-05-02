@@ -2,7 +2,11 @@ import React from 'react';
 import ResourceCard from './ResourceCard';
 import '../styles/ResourceList.css';
 
-const ResourceList = ({ resources }) => {
+const ResourceList = ({ resources, isLoading }) => {
+  if (isLoading) {
+    return <div className="resource-list-loading">Loading...</div>;
+  }
+
   return (
     <div className="resource-list-container">
       <div className="resource-list">

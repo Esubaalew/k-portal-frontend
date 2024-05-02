@@ -5,13 +5,10 @@ import Main from './Main';
 import { getLoggedInUser } from '../API/auth';
 import { Analytics } from '@vercel/analytics/react';
 import { useEffect, useState } from 'react';
-import ShareUI from './ShareUI';
-import ResourceList from './ResourceList';
+import Feed from './Feed';
 
 function Home() {
   const [user, setUser] = useState(null);
-  const [allUsers, setAllUsers] = useState([]);
-  const [allResources, setAllResources] = useState([]);
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -31,7 +28,7 @@ function Home() {
   return (
     <div className="App">
       <Header />
-      {user && <ShareUI />}
+      {user && <Feed />}
       {!user && <Main />}
      <Analytics/>
       <Footer />

@@ -27,7 +27,7 @@ const ShareUI = () => {
   }
 
   return (
-    <div className="share-ui-card">
+    <div className="share-ui-card ">
       <div className="left-component">
         <ProfileIcon firstName={user.first_name} lastName={user.last_name} />
       </div>
