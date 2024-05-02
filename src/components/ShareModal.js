@@ -1,7 +1,9 @@
+// ShareModal.js
 import React, { useState, useEffect } from 'react';
 import '../styles/ShareModal.css';
 import { addResource } from '../API/resources';
 import { getLoggedInUser } from '../API/auth';
+import {InfinitySpin} from 'react-loader-spinner'
 
 const ShareModal = ({ onClose, onPost }) => {
   const [content, setContent] = useState('');
@@ -57,13 +59,9 @@ const ShareModal = ({ onClose, onPost }) => {
       alert('Please fill in all required fields.');
       return;
     }
-  
-    if (selectedFormat === 'file' && !file) {
-      setFile(null);
-    }
 
     setLoading(true);
-  
+
     try {
       if (!loggedInUser) {
         console.log("Waiting for user to be logged in...");
@@ -76,7 +74,7 @@ const ShareModal = ({ onClose, onPost }) => {
       formData.append('caption', content);
       formData.append('topic', topic);
       formData.append('owner', loggedInUser.id);
-  
+
       if (selectedFormat === 'link') {
         formData.append('url', linkURL);
       } else if (selectedFormat === 'image') {
@@ -92,93 +90,115 @@ const ShareModal = ({ onClose, onPost }) => {
       alert('Failed to post resource. Please try again later.');
     } finally {
       setLoading(false);
-      onClose();
     }
   };
-  
+  const handleCloseSuccessMessage = () => {
+    setSuccessMessage(''); // Clear the success message
+    onClose(); // Close the modal
+  };
 
   return (
     <div className="share-modal-overlay" onClick={onClose}>
       <div className="share-modal-content" onClick={(e) => e.stopPropagation()}>
-        {loading && <div className="loading-message">Loading...</div>}
-        {successMessage && <div className="success-message">{successMessage}</div>}
-        <div className="caption-box">
-          <textarea
-            className="share-modal-input"
-            placeholder="Share something?"
-            value={content}
-            onChange={handleInputChange}
-          ></textarea>
-          <input
-            type="text"
-            className="share-modal-text-input"
-            placeholder="Language"
-            value={language}
-            onChange={(e) => setLanguage(e.target.value)}
-          />
-          <input
-            type="text"
-            className="share-modal-text-input"
-            placeholder="Topic"
-            value={topic}
-            onChange={(e) => setTopic(e.target.value)}
-          />
+        <div className="share-modal-header">
+          Share Knowledge
         </div>
-        {selectedFormat === 'link' && (
-          <input
-            type="text"
-            className="share-modal-link-input"
-            placeholder="Enter link URL"
-            value={linkURL}
-            onChange={handleLinkChange}
+        <hr className="share-modal-separator" />
+        {loading ? (
+          <InfinitySpin
+          visible={true}
+          width="200"
+          color="#4fa94d"
+          ariaLabel="infinity-spin-loading"
           />
-        )}
-        {selectedFormat === 'image' && (
+        ) : successMessage ? (
           <>
-            <input
-              type="file"
-              accept="image/*"
-              className="share-modal-file-input"
-              onChange={handleFileChange}
-            />
-            {imageFile && (
-              <img src={URL.createObjectURL(imageFile)} alt="Preview" className="image-preview" />
+            <div className="success-message">{successMessage}</div>
+            <button className="ok-button" onClick={handleCloseSuccessMessage}>OK</button>
+          </>
+        ) : (
+          <>
+            <div className="caption-box">
+              <textarea
+                className="share-modal-input"
+                placeholder="Share something?"
+                value={content}
+                onChange={handleInputChange}
+              ></textarea>
+              <input
+                type="text"
+                className="share-modal-text-input"
+                placeholder="Language"
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+              />
+              <input
+                type="text"
+                className="share-modal-text-input"
+                placeholder="Topic"
+                value={topic}
+                onChange={(e) => setTopic(e.target.value)}
+              />
+            </div>
+            {selectedFormat === 'link' && (
+              <input
+                type="text"
+                className="share-modal-link-input"
+                placeholder="Enter link URL"
+                value={linkURL}
+                onChange={handleLinkChange}
+              />
             )}
+            {selectedFormat === 'image' && (
+              <>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="share-modal-file-input"
+                  onChange={handleFileChange}
+                />
+                {imageFile && (
+                  <img src={URL.createObjectURL(imageFile)} alt="Preview" className="image-preview" />
+                )}
+              </>
+            )}
+            {selectedFormat === 'file' && (
+              <input
+                type="file"
+                className="share-modal-file-input"
+                onChange={handleFileChange}
+              />
+            )}
+            <div className="button-container">
+              <div className="format-card">
+                <button
+                  className={`format-button ${selectedFormat === 'link' ? 'selected' : ''}`}
+                  onClick={() => handleFormatSelect('link')}
+                >
+                  <i className="fas fa-link"></i>
+                </button>
+                <button
+                  className={`format-button ${selectedFormat === 'image' ? 'selected' : ''}`}
+                  onClick={() => handleFormatSelect('image')}
+                >
+                  <i className="fas fa-image"></i>
+                </button>
+                <button
+                  className={`format-button ${selectedFormat === 'file' ? 'selected' : ''}`}
+                  onClick={() => handleFormatSelect('file')}
+                >
+                  <i className="fas fa-file"></i>
+                </button>
+              </div>
+              <button className="share-modal-button" onClick={handlePost}>Post</button>
+            </div>
           </>
         )}
-        {selectedFormat === 'file' && (
-          <input
-            type="file"
-            className="share-modal-file-input"
-            onChange={handleFileChange}
-          />
-        )}
-        <div className="button-container">
-          <div className="format-card">
-            <button
-              className={`format-button ${selectedFormat === 'link' ? 'selected' : ''}`}
-              onClick={() => handleFormatSelect('link')}
-            >
-              <i className="fas fa-link"></i>
-            </button>
-            <button
-              className={`format-button ${selectedFormat === 'image' ? 'selected' : ''}`}
-              onClick={() => handleFormatSelect('image')}
-            >
-              <i className="fas fa-image"></i>
-            </button>
-            <button
-              className={`format-button ${selectedFormat === 'file' ? 'selected' : ''}`}
-              onClick={() => handleFormatSelect('file')}
-            >
-              <i className="fas fa-file"></i>
-            </button>
-          </div>
-          <button className="share-modal-button" onClick={handlePost}>Post</button>
-        </div>
       </div>
     </div>
   );
+  
+  
 };
 
 export default ShareModal;
