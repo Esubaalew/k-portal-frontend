@@ -1,0 +1,141 @@
+/* ShareModal.css */
+
+.share-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .share-modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    width: 80%;
+    max-width: 500px;
+    height: 50%;
+    overflow-y: auto;
+  }
+  
+  .share-modal-input {
+    width: 100%;
+    height: 100px;
+    resize: none;
+    margin-bottom: 10px;
+    border-radius: 10px;
+  }
+  
+  .caption-box {
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  
+  .format-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    order: 3;
+  }
+  
+  .format-button {
+    background-color: #f0f0f0;
+    border: 1px solid #d1d1d1; 
+    padding: 8px 16px; 
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 5px; 
+  }
+  
+  .format-button.selected {
+    background-color: #007bff;
+    color: white;
+  }
+  .share-modal-link-input {
+    width: 300px;
+    height: 40px; 
+    margin-top: 10px;
+    padding: 10px; 
+    border: 1px solid #ccc;
+    border-radius: 10px; 
+    font-size: 14px; 
+  }
+  .share-modal-link-input,
+  .share-modal-file-input {
+    width: 100%;
+    margin-top: 10px;
+  }
+  .share-modal-file-input {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px; 
+    border: 1px solid #ccc;
+    border-radius: 10px; 
+    font-size: 14px; 
+  }
+  
+  .image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    max-height: 200px;
+  }
+  
+
+  .caption-box, .share-modal-link-input {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 10px;
+  }
+  .image-preview, .share-modal-link-input {
+
+    background-size: cover;
+    background-position: center;
+    height: 200px; 
+  }  
+
+  .share-modal-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px; 
+    cursor: pointer;
+    order: 4; 
+    width: 100%; 
+    margin-top: 10px; 
+    border-radius: 20px;
+  }
+  .share-modal-button.disabled {
+    background-color: #ccc; 
+    cursor: not-allowed;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .format-card {
+    background-color: #f8f9fa;
+    border-radius: 20px; 
+    padding: 10px;
+    display: flex;
+  }
+  
+  .share-modal-text-input {
+    width: calc(50% - 5px);
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
+    display: inline-block; 
+    margin-right: 10px; 
+  }
+  

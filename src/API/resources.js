@@ -47,4 +47,19 @@ const getMetadataForResource = async (resourceId, accessToken) => {
     }
 };
 
-export { getAllResources, getResourceById, getMetadataForResource };
+// Function to add a new resource
+const addResource = async (resourceData, accessToken) => {
+    try {
+        const response = await axios.post(`${domain}api/resources/`, resourceData, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error adding resource:', error.response.data);
+        throw new Error('Error adding resource');
+    }
+};
+
+export { getAllResources, getResourceById, getMetadataForResource, addResource };
