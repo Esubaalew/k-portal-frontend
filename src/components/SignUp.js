@@ -74,7 +74,7 @@ const SignUp = () => {
         <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} className="input-field" />
         {error && <p className="error-message">{error}</p>}
         <button onClick={handleSignUp} className="signup-button" disabled={loading}>
-        {loading ? <i className="fa fa-spinner fa-spin"></i> : 'Sign In'}
+        {loading ? <i className="fa fa-spinner fa-spin"></i> : 'Sign Up'}
         </button>
         <p className="log-link">Have an account? <Link to="/in">Log in</Link></p>
       </div>

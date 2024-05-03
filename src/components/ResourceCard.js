@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import '../styles/ResourceCard.css';  
 import ProfileIcon from './ProfileIcon'; 
 import { getUserById } from '../API/users'; 
@@ -51,12 +52,20 @@ const ResourceCard = ({ resource }) => {
     <div className="resource-card">
       <div className="user-info">
         {ownerData ? (
-          <ProfileIcon firstName={ownerData.first_name} lastName={ownerData.last_name} />
+          <Link to={`/user/${ownerData.username}`}> {/* Use Link to redirect to user profile */}
+            <ProfileIcon firstName={ownerData.first_name} lastName={ownerData.last_name} />
+          </Link>
         ) : (
           <div className="avatar">U</div>
         )}
         <div className="user-details">
-          <div className="username">{ownerData ? `${ownerData.first_name} ${ownerData.last_name}` : 'Loading...'}</div>
+          {ownerData ? (
+            <Link to={`/user/${ownerData.username}`} className="username"> {/* Use Link to redirect to user profile */}
+              {`${ownerData.first_name} ${ownerData.last_name}`}
+            </Link>
+          ) : (
+            <div>Loading...</div>
+          )}
           <div className="time">{formatTime(date_shared)}</div>
         </div>
       </div>
