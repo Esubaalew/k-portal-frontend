@@ -59,3 +59,13 @@
     text-decoration: underline;
   }
   
+.signin-button:hover {
+  background-color: #0056b3;
+}
+
+.loader-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

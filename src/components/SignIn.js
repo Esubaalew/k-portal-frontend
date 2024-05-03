@@ -9,6 +9,7 @@ const SignIn = () => {
     password: ''
   });
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSignIn = async () => {
@@ -18,14 +19,16 @@ const SignIn = () => {
     }
   
     try {
+      setLoading(true); 
       const response = await signIn(userData);
       console.log('Signed in successfully:', response);
       localStorage.setItem('user', JSON.stringify(response));
       navigate('/');
-
     } catch (error) {
       console.error('Error signing in:', error);
       setError('Invalid credentials. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
   
@@ -41,7 +44,9 @@ const SignIn = () => {
         <input type="text" name="username" placeholder="Username" onChange={handleChange} className="input-field" />
         <input type="password" name="password" placeholder="Password" onChange={handleChange} className="input-field" />
         {error && <p className="error-message">{error}</p>}
-        <button onClick={handleSignIn} className="signin-button">Sign In</button>
+        <button onClick={handleSignIn} className="signin-button" disabled={loading}>
+          {loading ? <i className="fa fa-spinner fa-spin"></i> : 'Sign In'}
+        </button>
         <p className="register-link">Not Registered Yet? <Link to="/signup">Register</Link></p>
       </div>
     </div>

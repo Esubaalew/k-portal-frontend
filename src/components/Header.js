@@ -4,14 +4,16 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLaptopCode } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Header.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ProfileIcon from './ProfileIcon';
 import { getLoggedInUser } from '../API/auth';
 import ProfileModal from './ProfileModal';
 
+
 function Header() {
   const [user, setUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -33,6 +35,7 @@ function Header() {
     if (user) {
       localStorage.removeItem('user');
       setUser(null);
+      navigate('/');
     }
   };
 

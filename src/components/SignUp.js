@@ -13,6 +13,7 @@ const SignUp = () => {
     confirmPassword: ''
   });
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSignUp = async () => {
@@ -42,12 +43,16 @@ const SignUp = () => {
     };
   
     try {
+      setLoading(true);
       const response = await signUp(trimmedUserData);
       console.log('Signed up successfully:', response);
       navigate('/in');
     } catch (error) {
       console.error('Error signing up:', error);
       setError('An error occurred. Please try again.');
+    }
+    finally {
+      setLoading(false);
     }
   };
   
@@ -68,7 +73,9 @@ const SignUp = () => {
         <input type="password" name="password" placeholder="Password" onChange={handleChange} className="input-field" />
         <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} className="input-field" />
         {error && <p className="error-message">{error}</p>}
-        <button onClick={handleSignUp} className="signup-button">Sign Up</button>
+        <button onClick={handleSignUp} className="signup-button" disabled={loading}>
+        {loading ? <i className="fa fa-spinner fa-spin"></i> : 'Sign In'}
+        </button>
         <p className="log-link">Have an account? <Link to="/in">Log in</Link></p>
       </div>
     </div>
