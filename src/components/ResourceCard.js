@@ -9,6 +9,7 @@ const ResourceCard = ({ resource }) => {
   const { owner, caption, url, file, photo, language, topic, date_shared, date_modified } = resource;
   const [ownerData, setOwnerData] = useState(null);
   const [fileMetadata, setFileMetadata] = useState(null);
+  const [expanded, setExpanded] = useState(false); // State for tracking expanded caption
   const userData = JSON.parse(localStorage.getItem('user'));
   const accessToken = userData ? userData.access : null;
 
@@ -42,10 +43,13 @@ const ResourceCard = ({ resource }) => {
     fetchFileMetadata();
   }, [resource.id, file, accessToken, setFileMetadata]); 
 
- 
   const truncateFileName = (name) => {
     const maxLength = 20; 
     return name.length > maxLength ? name.slice(0, maxLength) + '...' : name;
+  };
+
+  const toggleExpand = () => {
+    setExpanded(!expanded);
   };
 
   return (
@@ -70,7 +74,10 @@ const ResourceCard = ({ resource }) => {
         </div>
       </div>
       <div className="resource-details">
-        <h3 className="caption">{caption}</h3>
+        <h3 className="caption" onClick={caption.length > 100 ? toggleExpand : null}>
+          {expanded || caption.length <= 100 ? caption : `${caption.slice(0, 100)}...`} {/* Display first 100 characters of long captions */}
+          {caption.length > 100 && <span className="see-more">{expanded ? 'See less' : 'See more'}</span>} {/* Toggle text based on expansion for longer captions */}
+        </h3>
         {url && (
           <p className="url" onClick={() => window.open(url, '_blank')}>{url}</p>
         )}

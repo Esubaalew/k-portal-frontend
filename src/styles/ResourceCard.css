@@ -46,6 +46,7 @@
   margin-top: 0;
   margin-bottom: 10px;
   font-size: 18px;
+  cursor: pointer;
 
 }
 
@@ -100,3 +101,11 @@
 }
 
 
+.see-more {
+  color: #007bff;
+  cursor: pointer;
+}
+
+.see-more:hover {
+  text-decoration: underline;
+}
