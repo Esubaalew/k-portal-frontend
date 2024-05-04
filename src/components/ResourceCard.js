@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom'; 
 import '../styles/ResourceCard.css';  
 import ProfileIcon from './ProfileIcon'; 
+import LikeCommentButtons from './LikeCommentButtons';
 import { getUserById } from '../API/users'; 
 import { getMetadataForResource } from '../API/resources'; 
 
 const ResourceCard = ({ resource }) => {
-  const { owner, caption, url, file, photo, language, topic, date_shared, date_modified } = resource;
+  const { owner, caption, url, file, photo, language, topic, date_shared, date_modified, likes_count, comments_count } = resource;
   const [ownerData, setOwnerData] = useState(null);
   const [fileMetadata, setFileMetadata] = useState(null);
-  const [expanded, setExpanded] = useState(false); // State for tracking expanded caption
+  const [expanded, setExpanded] = useState(false); 
   const userData = JSON.parse(localStorage.getItem('user'));
   const accessToken = userData ? userData.access : null;
 
@@ -56,7 +57,7 @@ const ResourceCard = ({ resource }) => {
     <div className="resource-card">
       <div className="user-info">
         {ownerData ? (
-          <Link to={`/user/${ownerData.username}`}> {/* Use Link to redirect to user profile */}
+          <Link to={`/user/${ownerData.username}`}>
             <ProfileIcon firstName={ownerData.first_name} lastName={ownerData.last_name} />
           </Link>
         ) : (
@@ -64,7 +65,7 @@ const ResourceCard = ({ resource }) => {
         )}
         <div className="user-details">
           {ownerData ? (
-            <Link to={`/user/${ownerData.username}`} className="username"> {/* Use Link to redirect to user profile */}
+            <Link to={`/user/${ownerData.username}`} className="username">
               {`${ownerData.first_name} ${ownerData.last_name}`}
             </Link>
           ) : (
@@ -75,8 +76,8 @@ const ResourceCard = ({ resource }) => {
       </div>
       <div className="resource-details">
         <h3 className="caption" onClick={caption.length > 100 ? toggleExpand : null}>
-          {expanded || caption.length <= 100 ? caption : `${caption.slice(0, 100)}...`} {/* Display first 100 characters of long captions */}
-          {caption.length > 100 && <span className="see-more">{expanded ? 'See less' : 'See more'}</span>} {/* Toggle text based on expansion for longer captions */}
+          {expanded || caption.length <= 100 ? caption : `${caption.slice(0, 100)}...`}
+          {caption.length > 100 && <span className="see-more">{expanded ? 'See less' : 'See more'}</span>}
         </h3>
         {url && (
           <p className="url" onClick={() => window.open(url, '_blank')}>{url}</p>
@@ -102,6 +103,7 @@ const ResourceCard = ({ resource }) => {
           <p><strong>Date Modified:</strong> {formatTime(date_modified)}</p>
         </div>
       </div>
+      <LikeCommentButtons likesCount={likes_count} commentsCount={comments_count} /> 
     </div>
   );
 };

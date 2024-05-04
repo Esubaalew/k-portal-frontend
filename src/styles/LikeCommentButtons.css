@@ -1,0 +1,30 @@
+.like-comment-buttons {
+    display: flex;
+  }
+  
+  .like-comment-buttons .like-button,
+  .like-comment-buttons .comment-button {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    background-color: transparent;
+    border: none; 
+    cursor: pointer;
+  }
+  
+  .like-comment-buttons .icon {
+    margin-right: 5px;
+    font-size: 1.2rem;
+    color: #333;
+    transition: color 0.3s; 
+  }
+  
+  .like-comment-buttons .count {
+    font-weight: bold;
+  }
+  
+  .like-comment-buttons .like-button:hover .icon,
+  .like-comment-buttons .comment-button:hover .icon {
+    color: #007bff;
+  }
+  
