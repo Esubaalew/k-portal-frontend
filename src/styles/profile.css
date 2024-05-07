@@ -1,8 +1,8 @@
+
 .profile-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 100vh;
 }
 
 .card {
@@ -11,9 +11,17 @@
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: left;
-  width: 350px; 
+  width: 90%; 
 }
 
+.profile-card{
+  width: 100%;
+  flex-direction: column ;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  
+}
 .top-section {
   display: flex;
   justify-content: space-between;
@@ -70,4 +78,31 @@
 .message-btn {
   background-color: #008CBA;
   color: white;
+}
+
+
+.tabs-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.tab {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.tab.active {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.tab-content {
+  margin-top: 20px;
+}
+
+.resources-tab {
+  margin-top: 20px;
 }

@@ -47,4 +47,19 @@ const getUserByUsername = async (username, accessToken) => {
     }
 };
 
-export { getUserById, getAllUsers, getUserByUsername };
+// Function to get resources by user
+const getResourcesByUser = async (username, accessToken) => {
+    try {
+        const response = await axios.get(`${domain}api/user/${username}/resources/`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching resources by user:', error.response.data);
+        throw new Error('Error fetching resources by user');
+    }
+};
+
+export { getUserById, getAllUsers, getUserByUsername, getResourcesByUser };
