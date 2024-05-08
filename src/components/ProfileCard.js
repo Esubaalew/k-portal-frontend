@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ProfileIcon from './ProfileIcon';
 import '../styles/profile.css';
-import { getUserByUsername, getResourcesByUser } from '../API/users';
+import { getUserByUsername, getResourcesByUser, getUserFollowers, getUserFollowing, getUserById } from '../API/users';
 import { useParams } from 'react-router-dom';
 
 const ProfilePage = () => {
@@ -10,6 +10,8 @@ const ProfilePage = () => {
   const [loading, setLoading] = useState(true);
   const [selectedTab, setSelectedTab] = useState('resources');
   const [expandedResource, setExpandedResource] = useState(null);
+  const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
   const { username } = useParams();
   const userData = JSON.parse(localStorage.getItem('user'));
   const accessToken = userData ? userData.access : null;
@@ -21,6 +23,7 @@ const ProfilePage = () => {
         setUser(user);
       } catch (error) {
         console.error('Error fetching user data:', error.message);
+        // Handle error - show error message to the user
       }
     };
 
@@ -35,14 +38,45 @@ const ProfilePage = () => {
         setLoading(false);
       } catch (error) {
         console.error('Error fetching user resources:', error.message);
+        // Handle error - show error message to the user
       }
     };
 
     fetchResources();
   }, [username, accessToken]);
 
+  useEffect(() => {
+    const fetchFollowersAndFollowing = async () => {
+      try {
+        if (user) {
+          const userFollowers = await getUserFollowers(user.id, accessToken);
+          const followerDetails = await Promise.all(userFollowers.map(async (follower) => {
+            const userDetails = await getUserById(follower.follower, accessToken);
+            return { ...follower, user: userDetails };
+          }));
+          setFollowers(followerDetails);
+
+          const userFollowing = await getUserFollowing(user.id, accessToken);
+          const followingDetails = await Promise.all(userFollowing.map(async (followedUser) => {
+            const userDetails = await getUserById(followedUser.followed_user, accessToken);
+            return { ...followedUser, user: userDetails };
+          }));
+          setFollowing(followingDetails);
+        }
+      } catch (error) {
+        console.error('Error fetching followers and following:', error.message);
+        // Handle error - show error message to the user
+      }
+    };
+
+    fetchFollowersAndFollowing();
+  }, [user, accessToken]);
+
+
+  
+
   if (!user) {
-    return <div>Loading user data...</div>; 
+    return <div>Loading user data...</div>;
   }
 
   const handleTabClick = (tab) => {
@@ -71,6 +105,8 @@ const ProfilePage = () => {
       <div className="tabs-container">
         <button className={`tab ${selectedTab === 'profile' ? 'active' : ''}`} onClick={() => handleTabClick('profile')}>Profile</button>
         <button className={`tab ${selectedTab === 'resources' ? 'active' : ''}`} onClick={() => handleTabClick('resources')}>Resources</button>
+        <button className={`tab ${selectedTab === 'following' ? 'active' : ''}`} onClick={() => handleTabClick('following')}>Following</button>
+        <button className={`tab ${selectedTab === 'followers' ? 'active' : ''}`} onClick={() => handleTabClick('followers')}>Followers</button>
       </div>
 
       <div className="tab-content">
@@ -79,6 +115,49 @@ const ProfilePage = () => {
             {/* Content for profile tab */}
           </div>
         )}
+
+        
+{selectedTab === 'following' && (
+  <div className="following-tab">
+    {following.length > 0 ? (
+      <ul>
+        {following.map((followedUser) => (
+          <li key={followedUser.id}>
+            <div className="user-details">
+              <span className="user-icon">👤</span>
+              <p>{followedUser.user.first_name} {followedUser.user.last_name} (@{followedUser.user.username})</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p>No users being followed.</p>
+    )}
+  </div>
+)}
+
+{selectedTab === 'followers' && (
+  <div className="followers-tab">
+    {followers.length > 0 ? (
+      <ul>
+        {followers.map((follower) => (
+          <li key={follower.id}>
+            <div className="user-details">
+              <span className="user-icon">👤</span>
+              <p>{follower.user.first_name} {follower.user.last_name} (@{follower.user.username})</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p>No followers.</p>
+    )}
+  </div>
+)}
+
+
+
+
 
 {selectedTab === 'resources' && (
   <div className="resources-tab">

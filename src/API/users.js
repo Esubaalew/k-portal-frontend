@@ -62,4 +62,35 @@ const getResourcesByUser = async (username, accessToken) => {
     }
 };
 
-export { getUserById, getAllUsers, getUserByUsername, getResourcesByUser };
+// Function to get a user's followers
+const getUserFollowers = async (userId, accessToken) => {
+    try {
+        const response = await axios.get(`${domain}api/users/${userId}/followers/`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching user followers:', error.response.data);
+        throw new Error('Error fetching user followers');
+    }
+};
+
+// Function to get users followed by a user
+const getUserFollowing = async (userId, accessToken) => {
+    try {
+        const response = await axios.get(`${domain}api/users/${userId}/following/`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching user following:', error.response.data);
+        throw new Error('Error fetching user following');
+    }
+};
+
+
+export { getUserById, getAllUsers, getUserByUsername, getResourcesByUser, getUserFollowers, getUserFollowing};
