@@ -14,6 +14,7 @@ const ProfilePage = () => {
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
   const [isFollowing, setIsFollowing] = useState(false);
+  const [isOwnProfile, setIsOwnProfile] = useState(false); 
   const { username } = useParams();
   const userData = JSON.parse(localStorage.getItem('user'));
   const accessToken = userData ? userData.access : null;
@@ -27,6 +28,7 @@ const ProfilePage = () => {
         const followingUsers = await getUserFollowing(loggedInUser.id, accessToken);
         const isFollowingUser = followingUsers.some(followedUser => followedUser.followed_user === user.id);
         setIsFollowing(isFollowingUser);
+        setIsOwnProfile(loggedInUser.username === username);
       } catch (error) {
         console.error('Error fetching user data:', error.message);
       }
@@ -122,10 +124,14 @@ const ProfilePage = () => {
           </div>
           <p className="bio">{user.bio}</p>
           <div className="button-container">
-          <button className="btn follow-btn" onClick={handleFollowToggle}>
-              {isFollowing ? 'Unfollow' : 'Follow'}
-            </button>
-            <button className="btn message-btn">Message</button>
+            {isOwnProfile ? null : (
+              <button className="btn follow-btn" onClick={handleFollowToggle} disabled={isFollowing}>
+                {isFollowing ? 'Unfollow' : 'Follow'}
+              </button>
+            )}
+            {!isOwnProfile && (
+              <button className="btn message-btn">Message</button>
+            )}
           </div>
         </div>
       </div>
