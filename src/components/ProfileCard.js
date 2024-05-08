@@ -8,7 +8,8 @@ const ProfilePage = () => {
   const [user, setUser] = useState(null);
   const [resources, setResources] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedTab, setSelectedTab] = useState('resources'); // Default tab selected
+  const [selectedTab, setSelectedTab] = useState('resources');
+  const [expandedResource, setExpandedResource] = useState(null);
   const { username } = useParams();
   const userData = JSON.parse(localStorage.getItem('user'));
   const accessToken = userData ? userData.access : null;
@@ -79,29 +80,48 @@ const ProfilePage = () => {
           </div>
         )}
 
-        {selectedTab === 'resources' && (
-          <div className="resources-tab">
-            <h2>Resources</h2>
-            {loading ? (
-              <div className="spinner-container">
-                <div className="spinner"></div>
+{selectedTab === 'resources' && (
+  <div className="resources-tab">
+
+    {loading ? (
+      <div className="spinner-container">
+        <div className="spinner"></div>
+      </div>
+    ) : (
+      <div>
+        {resources.length === 0 ? (
+          <p>No resources available</p>
+        ) : (
+          resources.map(resource => (
+            <div key={resource.id} className="resource-card">
+              <div className="resource-header">
+                <span className="resource-topic" style={{ color: '#007bff' }}>{resource.topic}</span>
+                <span className="resource-language" style={{ color: '#555' }}>{resource.language}</span>
               </div>
-            ) : (
-              <ul>
-                {resources.length === 0 ? (
-                  <p>No resources available</p>
-                ) : (
-                  resources.map(resource => (
-                    <li key={resource.id}>
-                      <p>{resource.caption}</p>
-                      {/* Add more details or styling for resources */}
-                    </li>
-                  ))
-                )}
-              </ul>
-            )}
-          </div>
+              <p className="resource-caption">
+  {resource.caption.length > 100 && expandedResource !== resource.id ? (
+    <>
+      {resource.caption.slice(0, 100)}...
+      <span className="see-more-link" onClick={() => setExpandedResource(resource.id)}>See More</span>
+    </>
+  ) : (
+    <>
+      {resource.caption}
+      {resource.caption.length > 100 && (
+        <span className="see-less-link" onClick={() => setExpandedResource(null)}>See Less</span>
+      )}
+    </>
+  )}
+</p>
+
+              <div className="resource-date">Shared on: {new Date(resource.date_shared).toLocaleDateString()}</div>
+            </div>
+          ))
         )}
+      </div>
+    )}
+  </div>
+)}
       </div>
     </div>
   );

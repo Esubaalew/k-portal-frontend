@@ -11,7 +11,7 @@
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: left;
-  width: 90%; 
+  width: 500px; 
 }
 
 .profile-card{
@@ -105,4 +105,83 @@
 
 .resources-tab {
   margin-top: 20px;
+}
+
+.resource-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+
+
+.resource-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 15px;
+  transition: transform 0.3s ease;
+  max-width: 500px; 
+  overflow: hidden;
+}
+
+.resource-card:hover {
+  transform: translateY(-5px);
+}
+
+.resource-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.resource-date {
+  font-size: 0.8em;
+  color: #888;
+}
+
+.resource-topic {
+  font-weight: bold;
+}
+
+.resource-language {
+  font-style: italic;
+}
+
+.resource-caption {
+  color: #666;
+}
+
+.see-more-link {
+  color: #007bff;
+  cursor: pointer;
+}
+
+.see-more-link:hover {
+  text-decoration: underline;
+}
+
+.see-less-link {
+  color: #007bff;
+  cursor: pointer;
+}
+
+.see-less-link:hover {
+  text-decoration: underline;
+}
+
+
+@media screen and (max-width: 600px){
+  .resource-card {
+    max-width: 100%;
+    width: 300px;
+
+  }
+  .card {
+    max-width: 100%;
+    width: 300px;
+  }
 }
