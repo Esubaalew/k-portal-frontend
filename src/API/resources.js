@@ -77,6 +77,22 @@ const likeResource = async (resourceId, accessToken) => {
     }
 };
 
+// Function to unlike a resource
+const unlikeResource = async (resourceId, accessToken) => {
+    try {
+        const response = await axios.post(`${domain}api/unlike/${resourceId}/`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error unliking resource:', error.response.data);
+        throw new Error('Error unliking resource');
+    }
+};
+
+
 // Function to get likes of a certain resource
 const getLikesForResource = async (resourceId, accessToken) => {
     try {
@@ -92,4 +108,14 @@ const getLikesForResource = async (resourceId, accessToken) => {
     }
 };
 
-export { getAllResources, getResourceById, getMetadataForResource, addResource, likeResource, getLikesForResource };
+export { 
+    getAllResources, 
+    getResourceById, 
+    
+    getMetadataForResource, 
+
+    addResource, 
+    likeResource,
+    getLikesForResource, 
+    unlikeResource
+ };

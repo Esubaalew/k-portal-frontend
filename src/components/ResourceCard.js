@@ -5,7 +5,10 @@ import ProfileIcon from './ProfileIcon';
 import LikeCommentButtons from './LikeCommentButtons';
 import { getUserById } from '../API/users';
 import { getLoggedInUser } from '../API/auth';
-import { getMetadataForResource, likeResource, getResourceById, getLikesForResource } from '../API/resources';
+import { getMetadataForResource, 
+  likeResource, 
+  getResourceById,
+   getLikesForResource, unlikeResource } from '../API/resources';
 
 const ResourceCard = ({ resource }) => {
   const { id, owner, caption, url, file, photo, language, topic, date_shared, date_modified, comments_count } = resource;
@@ -17,7 +20,7 @@ const ResourceCard = ({ resource }) => {
   const [likers, setLikers] = useState([]);
   const [showLikers, setShowLikers] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
-  const [likersDetails, setLikersDetails] = useState([]); // State to store likers details
+  const [likersDetails, setLikersDetails] = useState([]);
   const userData = JSON.parse(localStorage.getItem('user'));
   const accessToken = userData ? userData.access : null;
 
@@ -56,15 +59,23 @@ const ResourceCard = ({ resource }) => {
       try {
         if (id && accessToken) {
           const resourceData = await getResourceById(id, accessToken);
-          setIsLiked(resourceData.is_liked);
+        
+          if (resourceData && resourceData.likers) {
+            const loggedInUserId = userData ? userData.id : null;
+            const likedByLoggedInUser = resourceData.likers.some(liker => liker.user === loggedInUserId);
+
+            setIsLiked(likedByLoggedInUser);
+          }
         }
       } catch (error) {
         console.error('Error checking if liked:', error.message);
       }
     };
-
+    
     checkIfLiked();
-  }, [id, accessToken]);
+  }, [id, accessToken, userData]);
+  
+  
 
   useEffect(() => {
     const fetchLikers = async () => {
@@ -126,17 +137,26 @@ const ResourceCard = ({ resource }) => {
         console.error('Resource ID or access token is not available.');
         return;
       }
-
-      await likeResource(id, accessToken);
-
-      const updatedResource = await getResourceById(id, accessToken);
+  
+      const hasLiked = likers.some(liker => liker.user === loggedInUser.id);
+      let updatedResource;
+  
+      if (hasLiked) {
+        await unlikeResource(id, accessToken);
+        updatedResource = await getResourceById(id, accessToken);
+      } else {
+        await likeResource(id, accessToken);
+        updatedResource = await getResourceById(id, accessToken);
+      }
+  
       setLikesCount(updatedResource.likes_count);
-
-      setIsLiked(true);
+      setIsLiked(!hasLiked);
     } catch (error) {
-      console.error('Error liking resource:', error.message);
+      console.error('Error liking/unliking resource:', error.message);
     }
   };
+  
+  
 
   const handleToggleLikers = async () => {
     if (!showLikers) {
