@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ProfileIcon from './ProfileIcon';
 import '../styles/profile.css';
-import { getUserByUsername, getResourcesByUser, getUserFollowers, getUserFollowing, getUserById } from '../API/users';
+import { getUserByUsername, getResourcesByUser, getUserFollowers, getUserFollowing, getUserById, followUser, unfollowUser } from '../API/users';
 import { useParams } from 'react-router-dom';
 import { getLoggedInUser } from '../API/auth';
 
@@ -81,7 +81,30 @@ const ProfilePage = () => {
   if (!user) {
     return <div>Loading user data...</div>;
   }
-
+  const handleFollowToggle = async () => {
+    try {
+      if (!user || !user.id) {
+        console.error('User ID is invalid.');
+        return;
+      }
+  
+      if (isFollowing) {
+        // Unfollow the user
+        const unfollowResponse = await unfollowUser(user.id, accessToken);
+        console.log('Unfollow response:', unfollowResponse);
+        setIsFollowing(false);
+      } else {
+        // Follow the user
+        const followResponse = await followUser(user.id, accessToken);
+        console.log('Follow response:', followResponse);
+        setIsFollowing(true);
+      }
+    } catch (error) {
+      console.error('Error toggling follow:', error.message);
+      // Handle error - show error message to the user
+    }
+  };
+  
   const handleTabClick = (tab) => {
     setSelectedTab(tab);
   };
@@ -99,7 +122,7 @@ const ProfilePage = () => {
           </div>
           <p className="bio">{user.bio}</p>
           <div className="button-container">
-          <button className="btn follow-btn">
+          <button className="btn follow-btn" onClick={handleFollowToggle}>
               {isFollowing ? 'Unfollow' : 'Follow'}
             </button>
             <button className="btn message-btn">Message</button>
