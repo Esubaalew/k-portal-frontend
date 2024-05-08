@@ -3,6 +3,7 @@ import ProfileIcon from './ProfileIcon';
 import '../styles/profile.css';
 import { getUserByUsername, getResourcesByUser, getUserFollowers, getUserFollowing, getUserById } from '../API/users';
 import { useParams } from 'react-router-dom';
+import { getLoggedInUser } from '../API/auth';
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
@@ -12,6 +13,7 @@ const ProfilePage = () => {
   const [expandedResource, setExpandedResource] = useState(null);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
+  const [isFollowing, setIsFollowing] = useState(false);
   const { username } = useParams();
   const userData = JSON.parse(localStorage.getItem('user'));
   const accessToken = userData ? userData.access : null;
@@ -21,9 +23,12 @@ const ProfilePage = () => {
       try {
         const user = await getUserByUsername(username, accessToken);
         setUser(user);
+        const loggedInUser = await getLoggedInUser(accessToken);
+        const followingUsers = await getUserFollowing(loggedInUser.id, accessToken);
+        const isFollowingUser = followingUsers.some(followedUser => followedUser.followed_user === user.id);
+        setIsFollowing(isFollowingUser);
       } catch (error) {
         console.error('Error fetching user data:', error.message);
-        // Handle error - show error message to the user
       }
     };
 
@@ -38,7 +43,6 @@ const ProfilePage = () => {
         setLoading(false);
       } catch (error) {
         console.error('Error fetching user resources:', error.message);
-        // Handle error - show error message to the user
       }
     };
 
@@ -65,7 +69,6 @@ const ProfilePage = () => {
         }
       } catch (error) {
         console.error('Error fetching followers and following:', error.message);
-        // Handle error - show error message to the user
       }
     };
 
@@ -96,7 +99,9 @@ const ProfilePage = () => {
           </div>
           <p className="bio">{user.bio}</p>
           <div className="button-container">
-            <button className="btn follow-btn">Follow</button>
+          <button className="btn follow-btn">
+              {isFollowing ? 'Unfollow' : 'Follow'}
+            </button>
             <button className="btn message-btn">Message</button>
           </div>
         </div>

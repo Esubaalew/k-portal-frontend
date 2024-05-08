@@ -93,4 +93,34 @@ const getUserFollowing = async (userId, accessToken) => {
 };
 
 
-export { getUserById, getAllUsers, getUserByUsername, getResourcesByUser, getUserFollowers, getUserFollowing};
+// Function to follow a user
+const followUser = async (userId, accessToken) => {
+    try {
+        const response = await axios.post(`${domain}api/follow/`, { user_id: userId }, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error following user:', error.response.data);
+        throw new Error('Error following user');
+    }
+};
+
+// Function to unfollow a user
+const unfollowUser = async (userId, accessToken) => {
+    try {
+        const response = await axios.post(`${domain}api/unfollow/`, { user_id: userId }, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error unfollowing user:', error.response.data);
+        throw new Error('Error unfollowing user');
+    }
+};
+
+export { getUserById, getAllUsers, getUserByUsername, getResourcesByUser, getUserFollowers, getUserFollowing, followUser, unfollowUser };
