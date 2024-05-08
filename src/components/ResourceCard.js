@@ -4,7 +4,8 @@ import '../styles/ResourceCard.css';
 import ProfileIcon from './ProfileIcon';
 import LikeCommentButtons from './LikeCommentButtons';
 import { getUserById } from '../API/users';
-import { getMetadataForResource, likeResource, getResourceById } from '../API/resources';
+import { getLoggedInUser } from '../API/auth';
+import { getMetadataForResource, likeResource, getResourceById, getLikesForResource } from '../API/resources';
 
 const ResourceCard = ({ resource }) => {
   const { id, owner, caption, url, file, photo, language, topic, date_shared, date_modified, comments_count } = resource;
@@ -13,6 +14,10 @@ const ResourceCard = ({ resource }) => {
   const [expanded, setExpanded] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(resource.likes_count);
+  const [likers, setLikers] = useState([]);
+  const [showLikers, setShowLikers] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [likersDetails, setLikersDetails] = useState([]); // State to store likers details
   const userData = JSON.parse(localStorage.getItem('user'));
   const accessToken = userData ? userData.access : null;
 
@@ -61,6 +66,51 @@ const ResourceCard = ({ resource }) => {
     checkIfLiked();
   }, [id, accessToken]);
 
+  useEffect(() => {
+    const fetchLikers = async () => {
+      try {
+        if (id && accessToken) {
+          const likersData = await getLikesForResource(id, accessToken);
+          setLikers(likersData);
+        }
+      } catch (error) {
+        console.error('Error fetching likers:', error.message);
+      }
+    };
+
+    fetchLikers();
+  }, [id, accessToken]);
+
+  useEffect(() => {
+    const fetchLoggedInUser = async () => {
+      try {
+        if (accessToken) {
+          const user = await getLoggedInUser(accessToken);
+          setLoggedInUser(user);
+        }
+      } catch (error) {
+        console.error('Error fetching logged-in user:', error.message);
+      }
+    };
+
+    fetchLoggedInUser();
+  }, [accessToken]);
+
+  useEffect(() => {
+    const fetchLikersDetails = async () => {
+      try {
+        if (likers.length > 0 && accessToken) {
+          const details = await Promise.all(likers.map(liker => getUserById(liker.user, accessToken)));
+          setLikersDetails(details);
+        }
+      } catch (error) {
+        console.error('Error fetching likers details:', error.message);
+      }
+    };
+
+    fetchLikersDetails();
+  }, [likers, accessToken]);
+
   const truncateFileName = (name) => {
     const maxLength = 20;
     return name.length > maxLength ? name.slice(0, maxLength) + '...' : name;
@@ -85,6 +135,20 @@ const ResourceCard = ({ resource }) => {
       setIsLiked(true);
     } catch (error) {
       console.error('Error liking resource:', error.message);
+    }
+  };
+
+  const handleToggleLikers = async () => {
+    if (!showLikers) {
+      try {
+        const likersData = await getLikesForResource(id, accessToken);
+        setLikers(likersData);
+        setShowLikers(true);
+      } catch (error) {
+        console.error('Error fetching likers:', error.message);
+      }
+    } else {
+      setShowLikers(false);
     }
   };
 
@@ -136,6 +200,26 @@ const ResourceCard = ({ resource }) => {
           <p><strong>Language:</strong> {language}</p>
           <p><strong>Topic:</strong> {topic}</p>
           <p><strong>Date Modified:</strong> {formatTime(date_modified)}</p>
+        </div>
+      </div>
+      <div className="likes-info" onClick={handleToggleLikers}>
+        {showLikers && (
+          <div className="likers">
+            <span className="likers-title">Liked by:</span>
+            {likersDetails.map(liker => (
+              <span key={liker.id} className="liker-name">{liker.first_name} {liker.last_name}</span>
+            ))}
+          </div>
+        )}
+        <div className="likes-count">
+          {isLiked || (loggedInUser && likers.some(liker => liker.user === loggedInUser.id)) ? (
+           <span>
+           {likers.length > 1 ? `You and ${likers.length - 1} others liked this` : `You liked this`}
+         </span>
+         
+          ) : (
+            <span>{likers.length} {likers.length === 1 ? 'person' : 'people'} liked this</span>
+          )}
         </div>
       </div>
       <LikeCommentButtons likesCount={likesCount} commentsCount={comments_count} onLike={handleLike} isLiked={isLiked} />
