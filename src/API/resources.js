@@ -62,4 +62,34 @@ const addResource = async (resourceData, accessToken) => {
     }
 };
 
-export { getAllResources, getResourceById, getMetadataForResource, addResource };
+// Function to like a resource
+const likeResource = async (resourceId, accessToken) => {
+    try {
+        const response = await axios.post(`${domain}api/like/${resourceId}/`, null, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error liking resource:', error.response.data);
+        throw new Error('Error liking resource');
+    }
+};
+
+// Function to get likes of a certain resource
+const getLikesForResource = async (resourceId, accessToken) => {
+    try {
+        const response = await axios.get(`${domain}api/resources/${resourceId}/likes/`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching likes for resource:', error.response.data);
+        throw new Error('Error fetching likes for resource');
+    }
+};
+
+export { getAllResources, getResourceById, getMetadataForResource, addResource, likeResource, getLikesForResource };
