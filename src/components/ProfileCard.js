@@ -4,6 +4,7 @@ import '../styles/profile.css';
 import { getUserByUsername, getResourcesByUser, getUserFollowers, getUserFollowing, getUserById, followUser, unfollowUser } from '../API/users';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getLoggedInUser } from '../API/auth';
+import Header from './Header';
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
@@ -34,7 +35,6 @@ const ProfilePage = () => {
         }
       } catch (error) {
         console.error('Error fetching user data:', error.message);
-        // Prompt user to login if session expired
         navigate('/in');
       }
     };
@@ -115,6 +115,8 @@ const ProfilePage = () => {
   };
 
   return (
+    <>
+    <Header/>
     <div className="profile-container">
       {user && (
         <div className="profile-card">
@@ -229,6 +231,7 @@ const ProfilePage = () => {
         )}
       </div>
     </div>
+    </>
   );
 };
 

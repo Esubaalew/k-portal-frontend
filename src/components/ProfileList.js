@@ -4,6 +4,8 @@ import '../styles/ProfileList.css';
 import { getAllUsers } from '../API/users';
 import { useNavigate } from 'react-router-dom';
 import { Triangle } from 'react-loader-spinner';
+import Header from './Header';
+import Footer from './Footer'; // Make sure to import your Footer component
 
 const Profiles = () => {
   const [users, setUsers] = useState([]);
@@ -17,7 +19,7 @@ const Profiles = () => {
       try {
         const allUsers = await getAllUsers(accessToken);
         setUsers(allUsers);
-        setLoading(false); // Set loading to false after fetching data
+        setLoading(false); 
       } catch (error) {
         console.error('Error fetching all users:', error.message);
         navigate('/in');
@@ -28,21 +30,25 @@ const Profiles = () => {
   }, [accessToken, navigate]);
 
   return (
-    <div className="profiles-container">
-      <h1>All Profiles</h1>
-      {loading ? (
-        <div className="spinner-container">
-          <Triangle visible={true} height="100" width="100" color="#007bff" ariaLabel="rotating-triangles-loading" wrapperStyle={{}} wrapperClass="" />
-          <p className="loading-text">Getting users...</p> 
-        </div>
-      ) : (
-        <div className="profiles">
-          {users.map(user => (
-            <Profile key={user.id} user={user} />
-          ))}
-        </div>
-      )}
-    </div>
+    <>
+      <Header />
+      <div className="profiles-container">
+        <h1>All Profiles</h1>
+        {loading ? (
+          <div className="spinner-container">
+            <Triangle visible={true} height="100" width="100" color="#007bff" ariaLabel="rotating-triangles-loading" wrapperStyle={{}} wrapperClass="" />
+            <p className="loading-text">Getting users...</p> 
+          </div>
+        ) : (
+          <div className="profiles">
+            {users.map(user => (
+              <Profile key={user.id} user={user} />
+            ))}
+          </div>
+        )}
+      </div>
+      <Footer />
+    </>
   );
 };
 
