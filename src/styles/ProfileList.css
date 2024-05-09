@@ -62,4 +62,19 @@
   .follow-button:hover {
     background-color: #0056b3;
   }
+
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px; 
+  }
+
+  .loading-text {
+    text-align: center;
+    margin-top: 20px;
+    color: #007bff; 
+    font-size: 16px; 
+  }
+  
   
