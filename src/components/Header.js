@@ -4,6 +4,8 @@ import { faLaptopCode } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Header.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { getLoggedInUser } from '../API/auth';
+import Search from './Search'; // Import the Search component here
+
 const ProfileModal = React.lazy(() => import('./ProfileModal'));
 const ProfileIcon = React.lazy(() => import('./ProfileIcon'));
 
@@ -41,6 +43,8 @@ function Header() {
       <h1>
         <FontAwesomeIcon icon={faLaptopCode} className="header-icon" /> Portal
       </h1>
+      {/* Render the Search component here */}
+      <Search />
       <nav>
         <ul>
           <li>

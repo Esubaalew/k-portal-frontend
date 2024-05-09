@@ -1,0 +1,40 @@
+/* Modal.css */
+.modal {
+    position: fixed;
+    top: 10%;
+    left: 10%;
+    width: 40%; 
+    height: 70%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .modal-content {
+    overflow-y: auto;
+    max-height: calc(100% - 40px);
+  }
+  
+  .result-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .result-item:last-child {
+    border-bottom: none;
+  }
+  
+  .result-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .modal {
+      width: 60%;
+      height: 50%;
+      left: 10%;
+    }
+    
+  }
