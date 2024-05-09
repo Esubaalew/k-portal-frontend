@@ -4,7 +4,7 @@ import Home from './components/Home';
 import ProfilePage from './components/ProfileCard';
 import Profiles from './components/ProfileList';
 import ResourceList from './components/ResourceList';
-import { getUserById, getAllUsers } from './API/users'; 
+import { getUserById} from './API/users'; 
 import { getAllResources } from './API/resources';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
@@ -13,7 +13,6 @@ import NotFound from './components/NotFound';
 
 function App() {
   const [profileData, setProfileData] = useState(null);
-  const [allUsers, setAllUsers] = useState([]);
   const [allResources, setAllResources] = useState([]);
   const userData = JSON.parse(localStorage.getItem('user'));
   const accessToken = userData ? userData.access : null;
@@ -29,15 +28,6 @@ function App() {
       }
     };
 
-    const fetchAllUsers = async () => {
-      try {
-        const users = await getAllUsers(accessToken);
-        setAllUsers(users);
-      } catch (error) {
-        console.error('Error fetching all users:', error.message);
-      }
-    };
-
     const fetchAllResources = async () => {
       try {
         if (accessToken) {
@@ -50,7 +40,6 @@ function App() {
     };
 
     fetchUserData();
-    fetchAllUsers();
     fetchAllResources();
   }, [accessToken]);
 
@@ -61,7 +50,7 @@ function App() {
         <Route path="/in" element={ <SignIn/>} />
         <Route path="/signup" element={ <SignUp/>} />
         <Route path="/profile" element={<ProfilePage profileData={profileData} />} />
-        <Route path="/community" element={<Profiles users={allUsers} />} />
+        <Route path="/community" element={<Profiles  />} />
         <Route path="/resources" element={<ResourceList resources={allResources} />} />
         <Route path="/success" element={<Success/>} />
         <Route path="/user/:username" element={<ProfilePage />} />
