@@ -1,14 +1,11 @@
-// Header.js
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLaptopCode } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Header.css';
 import { Link, useNavigate } from 'react-router-dom';
-import ProfileIcon from './ProfileIcon';
 import { getLoggedInUser } from '../API/auth';
-import ProfileModal from './ProfileModal';
-
+const ProfileModal = React.lazy(() => import('./ProfileModal'));
+const ProfileIcon = React.lazy(() => import('./ProfileIcon'));
 
 function Header() {
   const [user, setUser] = useState(null);
@@ -18,7 +15,7 @@ function Header() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const Token = JSON.parse(localStorage.getItem('user'))
+        const Token = JSON.parse(localStorage.getItem('user'));
         const accessToken = Token ? Token.access : null;
         const userData = await getLoggedInUser(accessToken);
         setUser(userData);
@@ -57,19 +54,23 @@ function Header() {
       <div className="profile-section">
         {user ? (
           <>
-            <div className="profile-icon" onClick={() => setShowModal(!showModal)}>
-              <ProfileIcon firstName={user.first_name} lastName={user.last_name} />
-            </div>
+            <Suspense fallback={<div>Loading profile...</div>}>
+              <div className="profile-icon" onClick={() => setShowModal(!showModal)}>
+                <ProfileIcon firstName={user.first_name} lastName={user.last_name} />
+              </div>
+            </Suspense>
             {showModal && (
-              <ProfileModal
-                user={user}
-                onClose={() => setShowModal(false)}
-                onLogout={handleLogout}
-              />
+              <Suspense fallback={<div>Loading modal...</div>}>
+                <ProfileModal
+                  user={user}
+                  onClose={() => setShowModal(false)}
+                  onLogout={handleLogout}
+                />
+              </Suspense>
             )}
           </>
         ) : (
-          <Link to="/in" className='get-started' >Get Started</Link>
+          <Link to="/in" className='get-started'>Get Started</Link>
         )}
       </div>
     </header>

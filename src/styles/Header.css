@@ -94,3 +94,7 @@
 .clickable {
   cursor: pointer;
 }
+
+.Header nav ul li.active a {
+  color: #4CAF50; /* Change to desired color */
+}
