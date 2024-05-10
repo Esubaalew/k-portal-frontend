@@ -1,5 +1,6 @@
+// Search.js
 import React, { useState, useEffect } from 'react';
-import SearchModal from './SearchModal';
+import Modal from './SearchModal'; 
 import { searchUsers } from '../API/search';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -29,6 +30,7 @@ const Search = () => {
         }
       } else {
         setSearchResults([]);
+        setShowModal(false);
       }
     }, 300);
 
@@ -38,6 +40,10 @@ const Search = () => {
   const handleClickResult = (resultId) => {
     // Navigate to detail page for the selected result
     // You can use React Router's useHistory hook or withRouter HOC for this
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -56,14 +62,27 @@ const Search = () => {
       </div>
       
       {showModal && (
-        <SearchModal>
-          {searchResults.map(result => (
-            <div key={result.id} onClick={() => handleClickResult(result.id)} className="result-item">
-              {result.first_name} {result.last_name}
+  <Modal onClose={closeModal}>
+    <div className="search-results">
+      {searchResults.length > 0 ? (
+        searchResults.map(result => (
+          <div key={result.id} onClick={() => handleClickResult(result.id)} className="result-item">
+            <div className="user-icon">{result.first_name[0]}{result.last_name[0]}</div>
+            <div className="user-info">
+              <div className="user-name">{result.first_name} {result.last_name}</div>
+              <div className="user-username">@{result.username}</div>
             </div>
-          ))}
-        </SearchModal>
+          </div>
+        ))
+      ) : (
+        <div className="no-results">
+          No results found.
+        </div>
       )}
+    </div>
+  </Modal>
+)}
+
     </div>
   );
 };

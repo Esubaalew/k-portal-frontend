@@ -43,13 +43,12 @@ function Header() {
       <h1>
         <FontAwesomeIcon icon={faLaptopCode} className="header-icon" /> Portal
       </h1>
-      {/* Render the Search component here */}
       <Search />
       <nav>
         <ul>
-          <li>
+          {/* <li>
             <Link to="/resources">Resources</Link>
-          </li>
+          </li> */}
           <li>
             <Link to="/community">Community</Link>
           </li>
