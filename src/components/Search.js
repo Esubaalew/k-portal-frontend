@@ -64,7 +64,7 @@ const Search = () => {
               searchResults.map(result => (
                 <Link
                   key={result.id}
-                  to={result.hasOwnProperty('username') ? `/user/${result.username}` : '#'}
+                  to={result.hasOwnProperty('username') ? `/user/${result.username}` : `/resource/${result.id}`}
                   className="result-item-link"
                 >
                    <div

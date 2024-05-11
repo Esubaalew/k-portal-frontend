@@ -5,7 +5,7 @@ import { getAllUsers } from '../API/users';
 import { useNavigate } from 'react-router-dom';
 import { Triangle } from 'react-loader-spinner';
 import Header from './Header';
-import Footer from './Footer'; // Make sure to import your Footer component
+import Footer from './Footer';
 
 const Profiles = () => {
   const [users, setUsers] = useState([]);

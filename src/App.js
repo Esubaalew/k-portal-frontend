@@ -7,6 +7,7 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import Success from './components/Success';
 import NotFound from './components/NotFound';
+import ResourcePage from './components/ResourcePage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/resources" element={<ResourceList />} />
         <Route path="/success" element={<Success/>} />
         <Route path="/user/:username" element={<ProfilePage />} />
+        <Route path="/resource/:id" element={<ResourcePage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
