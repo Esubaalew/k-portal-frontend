@@ -40,7 +40,7 @@ export const getLoggedInUser = async (accessToken) => {
 // Function to request password reset
 export const requestPasswordReset = async (emailData) => {
   try {
-    const response = await axios.post(`${domain}api/password-reset-request/`, emailData);
+    const response = await axios.post(`${domain}api/password-reset/`, emailData);
     return response.data;
   } catch (error) {
     throw error.response.data;

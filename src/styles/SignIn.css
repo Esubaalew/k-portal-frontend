@@ -69,3 +69,17 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+  
+.forgot-password-link {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.forgot-password-link a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.forgot-password-link a:hover {
+  text-decoration: underline;
+}

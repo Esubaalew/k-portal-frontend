@@ -8,6 +8,8 @@ import SignUp from './components/SignUp';
 import Success from './components/Success';
 import NotFound from './components/NotFound';
 import ResourcePage from './components/ResourcePage';
+import Reset from './components/Reset';
+import MakePass from './components/MakePass';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path="/success" element={<Success/>} />
         <Route path="/user/:username" element={<ProfilePage />} />
         <Route path="/resource/:id" element={<ResourcePage />} />
+        <Route path='/password-reset-confirm/:uidb64/:token' element={<MakePass />} />
+        <Route path='/reset' element={<Reset />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

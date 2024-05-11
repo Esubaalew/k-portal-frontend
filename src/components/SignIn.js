@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { signIn } from '../API/auth';
-import '../styles/SignIn.css';
 import { useNavigate, Link } from 'react-router-dom';
+import '../styles/SignIn.css';
 
 const SignIn = () => {
   const [userData, setUserData] = useState({
@@ -47,6 +47,7 @@ const SignIn = () => {
         <button onClick={handleSignIn} className="signin-button" disabled={loading}>
           {loading ? <i className="fa fa-spinner fa-spin"></i> : 'Sign In'}
         </button>
+        <p className="forgot-password-link"><Link to="/reset">Forgot Password?</Link></p>
         <p className="register-link">Not Registered Yet? <Link to="/signup">Register</Link></p>
       </div>
     </div>
