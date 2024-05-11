@@ -35,3 +35,24 @@ export const getLoggedInUser = async (accessToken) => {
     throw error.response.data;
   }
 };
+
+
+// Function to request password reset
+export const requestPasswordReset = async (emailData) => {
+  try {
+    const response = await axios.post(`${domain}api/password-reset-request/`, emailData);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+// Function to confirm password reset
+export const confirmPasswordReset = async (uidb64, token, newPasswordData) => {
+  try {
+    const response = await axios.post(`${domain}api/password-reset-confirm/${uidb64}/${token}/`, newPasswordData);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
