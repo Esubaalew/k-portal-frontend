@@ -98,3 +98,18 @@
 .Header nav ul li.active a {
   color: #4CAF50; /* Change to desired color */
 }
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+}
+
+@media (max-width: 768px) {
+  .Header {
+    flex-direction: column;
+  }
+
+ 
+}
