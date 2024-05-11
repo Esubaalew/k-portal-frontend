@@ -216,11 +216,23 @@ const ResourceCard = ({ resource }) => {
             <img src={photo} alt="Resource" className="photo" />
           </div>
         )}
-        <div className="additional-info">
-          <p><strong>Language:</strong> {language}</p>
-          <p><strong>Topic:</strong> {topic}</p>
-          <p><strong>Date Modified:</strong> {formatTime(date_modified)}</p>
-        </div>
+            <div className="additional-info">
+  <div className="info-item">
+    <i className="fas fa-bookmark info-icon"></i>
+    <span className="info-label">:</span>
+    <span className="info-value">{resource ? topic : 'Loading...'}</span>
+  </div>
+  <div className="info-item">
+    <i className="fas fa-code info-icon"></i>
+    <span className="info-label">:</span>
+    <span className="info-value">{resource ? language : 'Loading...'}</span>
+  </div>
+  <div className="info-item">
+    <i className="fas fa-clock info-icon"></i>
+    <span className="info-label">Edited:</span>
+    <span className="info-value">{resource ? new Date(date_modified).toLocaleString() : 'Loading...'}</span>
+  </div>
+</div>
       </div>
       <div className="likes-info" onClick={handleToggleLikers}>
         {showLikers && (

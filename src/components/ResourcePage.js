@@ -123,7 +123,6 @@ const ResourcePage = () => {
         </div>
       </div>
       <div className="resource-details">
-        {/* Assuming caption, url, file, photo, language, topic, date_modified are properties of resource */}
         <h3 className="caption">{resource ? resource.caption : 'Loading...'}</h3>
         {resource && resource.url && (
           <p className="url" onClick={() => window.open(resource.url, '_blank')}>{resource.url}</p>
@@ -143,11 +142,26 @@ const ResourcePage = () => {
             <img src={resource.photo} alt="Resource" className="photo" />
           </div>
         )}
-        <div className="additional-info">
-          <p><strong>Language:</strong> {resource ? resource.language : 'Loading...'}</p>
-          <p><strong>Topic:</strong> {resource ? resource.topic : 'Loading...'}</p>
-          <p><strong>Date Modified:</strong> {resource ? new Date(resource.date_modified).toLocaleString() : 'Loading...'}</p>
-        </div>
+       <div className="additional-info">
+  <div className="info-item">
+    <i className="fas fa-bookmark info-icon"></i>
+    <span className="info-label">:</span>
+    <span className="info-value">{resource ? resource.topic : 'Loading...'}</span>
+  </div>
+  <div className="info-item">
+    <i className="fas fa-code info-icon"></i>
+    <span className="info-label">:</span>
+    <span className="info-value">{resource ? resource.language : 'Loading...'}</span>
+  </div>
+  <div className="info-item">
+    <i className="fas fa-clock info-icon"></i>
+    <span className="info-label">Edited:</span>
+    <span className="info-value">{resource ? new Date(resource.date_modified).toLocaleString() : 'Loading...'}</span>
+  </div>
+</div>
+
+
+
       </div>
       <div className="likes-info" onClick={handleToggleLikers}>
         {showLikers && (
