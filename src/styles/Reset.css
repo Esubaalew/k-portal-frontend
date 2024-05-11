@@ -45,3 +45,24 @@
     margin-top: 5px;
   }
   
+
+  .success-message {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+  }
+  
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .success-message {
+    animation: fadeIn 1s ease-in-out;
+  }
+  

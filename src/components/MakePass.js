@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { confirmPasswordReset } from '../API/auth';
 import { useNavigate } from 'react-router-dom';
-import '../styles/MakePass.css';
 import { useParams } from 'react-router-dom';
+import '../styles/MakePass.css';
 
 const MakePass = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const { uidb64, token } = useParams();
   
   const navigate = useNavigate();
@@ -26,16 +27,19 @@ const MakePass = () => {
   
     try {
       setLoading(true); 
-    
       await confirmPasswordReset(uidb64, token, { new_password: newPassword });
-      console.log('Password changed successfully.');
-      navigate('/signin');
+      setShowSuccessModal(true); // Show success modal
     } catch (error) {
       console.error('Error changing password:', error);
       setError('Failed to change password. Please try again.');
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleModalClose = () => {
+    setShowSuccessModal(false);
+    navigate('/signin'); 
   };
   
   const handleNewPasswordChange = (e) => {
@@ -57,6 +61,12 @@ const MakePass = () => {
           {loading ? <i className="fa fa-spinner fa-spin"></i> : 'Change Password'}
         </button>
       </div>
+      {showSuccessModal && (
+        <div className="success-modal">
+          <p>Password changed successfully!</p>
+          <button onClick={handleModalClose}>OK</button>
+        </div>
+      )}
     </div>
   );
 };
