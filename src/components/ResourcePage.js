@@ -7,6 +7,7 @@ import ProfileIcon from './ProfileIcon';
 import LikeCommentButtons from './LikeCommentButtons';
 import { getLoggedInUser } from '../API/auth';
 import '../styles/ResourcePage.css';
+import { useNavigate } from 'react-router-dom';
 
 const ResourcePage = () => {
   const { id } = useParams();
@@ -19,6 +20,7 @@ const ResourcePage = () => {
   const [likers, setLikers] = useState([]); 
   const userData = JSON.parse(localStorage.getItem('user'));
   const accessToken = userData ? userData.access : null;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const checkIfLiked = async () => {
@@ -35,11 +37,12 @@ const ResourcePage = () => {
         }
       } catch (error) {
         console.error('Error checking if liked:', error.message);
+        navigate('/in');
       }
     };
     
     checkIfLiked();
-  }, [id, accessToken, userData]);
+  }, [id, accessToken, userData, navigate]);
   useEffect(() => {
     const fetchLoggedInUser = async () => {
       try {
@@ -91,6 +94,7 @@ const ResourcePage = () => {
         }
       } catch (error) {
         console.error('Error fetching resource data:', error);
+
       }
     };
 
@@ -102,7 +106,7 @@ const ResourcePage = () => {
   };
 
   return (
-    <div className="resource-card">
+    <div className="resource-cardd">
       <div className="user-info">
         {ownerData ? (
           <Link to={`/user/${ownerData.username}`}>
