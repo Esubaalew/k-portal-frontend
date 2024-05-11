@@ -39,7 +39,7 @@ const MakePass = () => {
 
   const handleModalClose = () => {
     setShowSuccessModal(false);
-    navigate('/signin'); 
+    navigate('/in'); 
   };
   
   const handleNewPasswordChange = (e) => {
