@@ -1,6 +1,6 @@
-// Search.js
 import React, { useState, useEffect } from 'react';
-import Modal from './SearchModal'; 
+import { Link } from 'react-router-dom'; // Import Link
+import Modal from './SearchModal';
 import { searchUsers, searchResources } from '../API/search';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -10,50 +10,36 @@ const Search = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [searchType, setSearchType] = useState('user'); // Default search type is 'user'
   const user = JSON.parse(localStorage.getItem('user'));
   const accessToken = user?.access;
 
-  const handleChange = (e) => {
-    setSearchQuery(e.target.value);
+  const handleChange = async (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    setShowModal(query.trim() !== ''); // Show modal if query is not empty
   };
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(async () => {
       if (searchQuery.trim() !== '') {
         try {
-          let results = [];
-          if (searchType === 'user') {
-            results = await searchUsers(searchQuery, accessToken);
-          } else if (searchType === 'resource') {
-            results = await searchResources(searchQuery, accessToken);
-          }
-          setSearchResults(results);
-          setShowModal(true);
+          const userResults = await searchUsers(searchQuery, accessToken);
+          const resourceResults = await searchResources(searchQuery, accessToken);
+          setSearchResults([...userResults, ...resourceResults]);
         } catch (error) {
           console.error('Error fetching search results:', error);
         }
       } else {
         setSearchResults([]);
-        setShowModal(false);
       }
     }, 300);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [searchQuery, accessToken, searchType]);
-
-  const handleClickResult = (resultId) => {
-    // Navigate to detail page for the selected result
-    // You can use React Router's useHistory hook or withRouter HOC for this
-  };
+  }, [searchQuery, accessToken]);
 
   const closeModal = () => {
+    setSearchQuery('');
     setShowModal(false);
-  };
-
-  const handleSearchTypeChange = (type) => {
-    setSearchType(type);
-    setSearchQuery(''); 
   };
 
   return (
@@ -73,29 +59,18 @@ const Search = () => {
       
       {showModal && (
         <Modal onClose={closeModal}>
-          <div className="search-filter">
-            <button
-              className={searchType === 'user' ? 'active' : ''}
-              onClick={() => handleSearchTypeChange('user')}
-            >
-              Users
-            </button>
-            <button
-              className={searchType === 'resource' ? 'active' : ''}
-              onClick={() => handleSearchTypeChange('resource')}
-            >
-              Resources
-            </button>
-          </div>
           <div className="search-results">
             {searchResults.length > 0 ? (
               searchResults.map(result => (
-                <div
+                <Link
                   key={result.id}
-                  onClick={() => handleClickResult(result.id)}
-                  className="result-item"
+                  to={result.hasOwnProperty('username') ? `/user/${result.username}` : '#'}
+                  className="result-item-link"
                 >
-                  {searchType === 'user' && (
+                   <div
+                    className="result-item"
+                  ></div>
+                  {result.hasOwnProperty('username') ? (
                     <>
                       <div className="user-icon">
                         {result.first_name[0]}
@@ -110,21 +85,20 @@ const Search = () => {
                         </div>
                       </div>
                     </>
-                  )}
-                  {searchType === 'resource' && (
-                    <>
-                      <div className="resource-icon"></div>
-                      <div className="resource-info">
-                        <div className="resource-caption">
-                          {result.caption}
-                        </div>
-                        <div className="resource-topic">
-                          {result.topic}
-                        </div>
+                  ) : (
+                    <div className="resource-info">
+                      <div className="resource-caption">
+                        {result.caption.length > 50 ? `${result.caption.substring(0, 50)}...` : result.caption}
                       </div>
-                    </>
+                      <div className="resource-topic">
+                        {result.topic}
+                      </div>
+                      <div className="resource-language">
+                        {result.language}
+                      </div>
+                    </div>
                   )}
-                </div>
+                </Link>
               ))
             ) : (
               <div className="no-results">
