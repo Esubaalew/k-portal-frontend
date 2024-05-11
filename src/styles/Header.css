@@ -62,15 +62,17 @@
   cursor: pointer;
   border-radius: 20px;
   font-weight: bold;
+  text-decoration-line: none;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 780px) {
   .Header {
     padding: 0.25rem;
   }
 
   .Header h1 {
     font-size:1rem;
+    align-content: start;
   }
 
   .header-icon {
@@ -96,7 +98,7 @@
 }
 
 .Header nav ul li.active a {
-  color: #4CAF50; /* Change to desired color */
+  color: #4CAF50; 
 }
 
 .header-brand {

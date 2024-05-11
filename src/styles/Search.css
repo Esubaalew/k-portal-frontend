@@ -115,3 +115,38 @@
   text-decoration: none; 
   color: inherit; 
 }
+
+@media screen and (max-width: 780px) {
+  .search-input {
+    padding: 10px 14px;
+    padding-left: 40px;
+    font-size: 14px; 
+    width: 100px;
+  }
+
+  .search-icon {
+    left: 14px; 
+  }
+
+  .search-button {
+    padding: 8px 16px; 
+  }
+
+  .user-icon,
+  .resource-icon {
+    width: 40px;
+    height: 40px; 
+    font-size: 16px;
+  }
+
+  .user-name,
+  .resource-caption {
+    font-size: 16px; 
+  }
+
+  .user-username,
+  .resource-topic {
+    font-size: 12px;
+  }
+  
+}
