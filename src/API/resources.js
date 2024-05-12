@@ -108,6 +108,22 @@ const getLikesForResource = async (resourceId, accessToken) => {
     }
 };
 
+// Function to fetch resources by language
+const getResourcesByLanguage = async (languageId,accessToken) => {
+    try {
+        const response = await axios.get(`${domain}api/resources/language/${languageId}/`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching resources:', error);
+        throw new Error('Failed to fetch resources');
+    }
+};
+
+
 export { 
     getAllResources, 
     getResourceById, 
@@ -117,5 +133,6 @@ export {
     addResource, 
     likeResource,
     getLikesForResource, 
-    unlikeResource
+    unlikeResource,
+    getResourcesByLanguage
  };

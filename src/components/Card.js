@@ -2,8 +2,9 @@ import React from 'react';
 import '../styles/Card.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCode } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
-function Card({ name, shorty, subtitle, description })  {
+function Card({ id, name, shorty, description })  {
     const colorMap = {
       'JavaScript': '#f0db4f',
       'Python': '#4B8BBE',    
@@ -52,7 +53,9 @@ function Card({ name, shorty, subtitle, description })  {
           </div>
           <p className="card-description">{description}</p>
           <div className="learn-more-container">
-            <button className="learn-more">Learn More</button>
+          <Link to={`/resources/language/${id}`} className="learn-more">
+          Learn More
+        </Link>
           </div>
         </div>
       );
