@@ -32,4 +32,19 @@ const searchResources = async (query, accessToken) => {
     }
 };
 
-export { searchUsers, searchResources };
+// Function to search for GitHub repositories using the backend
+const searchGitHubRepos = async (query, accessToken) => {
+    try {
+        const response = await axios.get(`${domain}api/github/repos/?query=${query}`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error searching GitHub repositories:', error.response.data);
+        throw new Error('Error searching GitHub repositories');
+    }
+};
+
+export { searchUsers, searchResources, searchGitHubRepos };

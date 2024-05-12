@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLaptopCode, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faLaptopCode, faUsers, faCodeBranch } from '@fortawesome/free-solid-svg-icons'; // Importing the icon for Repos
 import '../styles/Header.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { getLoggedInUser } from '../API/auth';
@@ -53,6 +53,11 @@ function Header() {
               <li>
                 <Link to="/community">
                   <FontAwesomeIcon icon={faUsers} /> Community
+                </Link>
+              </li>
+              <li>
+                <Link to="/repos">
+                  <FontAwesomeIcon icon={faCodeBranch} /> Repos
                 </Link>
               </li>
             </ul>
