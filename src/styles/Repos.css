@@ -1,68 +1,138 @@
 .repos-container {
     padding: 20px;
-  }
-  
-  .search-containers {
+}
+
+.search-containers {
+    display: flex;
+    justify-content: center;
     margin-bottom: 20px;
-  }
-  
-  .search-containers input {
+}
+
+.search-containers input {
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 10px;
-  }
-  
-  .search-containers button {
+    border-radius: 20px; 
+    width: 50%;
+}
+
+.search-button {
     padding: 10px 20px;
     font-size: 16px;
     background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px; 
     cursor: pointer;
-  }
-  
-  .search-containers button:hover {
+}
+
+.search-button:hover {
     background-color: #0056b3;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; 
   }
-  
-  .loading {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .results {
+.results {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
-  }
-  
-  .repo-item {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
-  }
-  
-  .repo-item h3 {
+}
+
+.repo-item p {
     margin-bottom: 10px;
-  }
-  
-  .repo-item p {
-    margin-bottom: 10px;
-  }
-  
-  .details {
+}
+
+.details {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
     margin-top: 10px;
-  }
-  
-  .repo-item a {
+}
+
+.details p {
+    display: flex;
+    align-items: center;
+    margin: 0; 
+}
+
+.repo-item a {
     display: block;
     color: #007bff;
     text-decoration: none;
-  }
-  
-  .repo-item a:hover {
+}
+
+.repo-item a:hover {
     text-decoration: underline;
-  }
+}
+
+.faStar, .faSync {
+    color: #ffd700; 
+}
+
+.faCode, .faStar, .faSync {
+    margin-right: 5px;
+}
+
+.details p {
+    margin-bottom: 5px;
+}
+
+.faCode {
+    color: #007bff; 
+}
+
+.faCode::after {
+    content: 'Language';
+    visibility: hidden;
+}
+
+.faStar::after {
+    content: 'Stars';
+    visibility: hidden;
+}
+
+.faSync::after {
+    content: 'Last Updated';
+    visibility: hidden;
+}
+
+.repo-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    border-radius: 10px; /* Rounded card */
+    padding: 20px;
+}
+
+.repo-item h3 {
+    margin-bottom: 10px;
+    color: #007bff; /* Blue color */
+    font-weight: bold; /* Bold font weight */
+}
+
+.repo-item p {
+    margin-bottom: 10px;
+}
+
+.details {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.details p {
+    display: flex;
+    align-items: center;
+    margin: 0; 
+}
+
+.view-on-github {
+    text-align: center;
+}

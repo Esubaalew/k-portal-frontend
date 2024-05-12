@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { searchGitHubRepos } from '../API/search';
-import { formatDistanceToNow, parseISO } from 'date-fns'; 
+import { formatDistanceToNow, parseISO } from 'date-fns';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar, faSync, faCode } from '@fortawesome/free-solid-svg-icons';
+import { TailSpin } from 'react-loader-spinner';
+import NoResults from './NoResults';
 import '../styles/Repos.css';
-
 
 const Repos = () => {
   const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchMade, setSearchMade] = useState(false);
   const user = JSON.parse(localStorage.getItem('user'));
   const accessToken = user?.access;
 
@@ -30,6 +34,7 @@ const Repos = () => {
   const handleSearch = async () => {
     if (searchText.trim() !== '') {
       setLoading(true);
+      setSearchMade(true);
       try {
         const results = await searchGitHubRepos(searchText, accessToken);
         setSearchResults(results);
@@ -50,10 +55,14 @@ const Repos = () => {
           onChange={(e) => setSearchText(e.target.value)}
           placeholder="Search GitHub Repositories"
         />
-        <button onClick={handleSearch}>Search</button>
+        <button className="search-button" onClick={handleSearch}>Search</button>
       </div>
       {loading ? (
-        <div className="loading">Loading...</div>
+        <div className="loading">
+          <TailSpin color="#00BFFF" height={80} width={80} />
+        </div>
+      ) : searchMade && searchResults.length === 0 ? (
+        <NoResults />
       ) : (
         <div className="results">
           {searchResults.map((repo) => (
@@ -61,9 +70,24 @@ const Repos = () => {
               <h3>{repo.name}</h3>
               <p>{repo.description}</p>
               <div className="details">
-                {repo.language && <p><strong>Language:</strong> {repo.language}</p>}
-                {repo.stargazers_count && <p><strong>Stars:</strong> {formatNumber(repo.stargazers_count)}</p>}
-                {repo.updated_at && <p><strong>Last Updated:</strong> {formatDate(repo.updated_at)}</p>}
+                {repo.language && (
+                  <p>
+                    <FontAwesomeIcon icon={faCode} title="Language" color='blue' />
+                    {repo.language}
+                  </p>
+                )}
+                {repo.stargazers_count && (
+                  <p>
+                    <FontAwesomeIcon icon={faStar} title="Stars" color='orange'/>
+                    {formatNumber(repo.stargazers_count)}
+                  </p>
+                )}
+                {repo.updated_at && (
+                  <p>
+                    <FontAwesomeIcon icon={faSync} title="Last Updated" color='brown' />
+                    {formatDate(repo.updated_at)}
+                  </p>
+                )}
               </div>
               <a href={repo.html_url} target="_blank" rel="noopener noreferrer">View on GitHub</a>
             </div>
