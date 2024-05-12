@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Card from './Card';
 import '../styles/Main.css';
 import { getAllLanguages } from '../API/languages';
+import { Audio } from 'react-loader-spinner'; // Import the Audio spinner
 
 function MainContent() {
   const [languages, setLanguages] = useState([]);
@@ -10,7 +11,6 @@ function MainContent() {
   useEffect(() => {
     const fetchLanguages = async () => {
       try {
-       
         const fetchedLanguages = await getAllLanguages();
         setLanguages(fetchedLanguages);
         setLoading(false);
@@ -26,7 +26,10 @@ function MainContent() {
   return (
     <main className="MainContent">
       {loading ? (
-        <p>Loading...</p> // Display a loading message or spinner while loading
+        // Display the spinner during loading
+        <div className="loading-spinner">
+          <Audio height={80} width={80} radius={9} color="green" ariaLabel="loading" />
+        </div>
       ) : (
         languages.map((language, index) => (
           <Card 
