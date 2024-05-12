@@ -1,10 +1,11 @@
+// Header.js
 import React, { useState, useEffect, Suspense } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLaptopCode, faUsers, faCodeBranch } from '@fortawesome/free-solid-svg-icons'; // Importing the icon for Repos
+import { faLaptopCode, faUsers, faCodeBranch } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Header.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { getLoggedInUser } from '../API/auth';
-import Search from './Search'; 
+import Search from './Search';
 
 const ProfileModal = React.lazy(() => import('./ProfileModal'));
 const ProfileIcon = React.lazy(() => import('./ProfileIcon'));
@@ -42,22 +43,24 @@ function Header() {
     <header className="Header">
       <Link to="/" className="header-brand">
         <h1>
-        <FontAwesomeIcon icon={faLaptopCode} className="header-icon" /> Portal
+          <FontAwesomeIcon icon={faLaptopCode} className="header-icon" /> Portal
         </h1>
       </Link>
       {user && (
         <>
           <Search />
-          <nav>
+          <nav className="header-nav">
             <ul>
               <li>
-                <Link to="/community">
-                  <FontAwesomeIcon icon={faUsers} /> Community
+                <Link to="/community" className="nav-icon">
+                  <FontAwesomeIcon icon={faUsers} />
+                  <span className="nav-text">Community</span>
                 </Link>
               </li>
               <li>
-                <Link to="/repos">
-                  <FontAwesomeIcon icon={faCodeBranch} /> Repos
+                <Link to="/repos" className="nav-icon">
+                  <FontAwesomeIcon icon={faCodeBranch} />
+                  <span className="nav-text">Repos</span>
                 </Link>
               </li>
             </ul>
@@ -83,7 +86,9 @@ function Header() {
             )}
           </>
         ) : (
-          <Link to="/in" className='get-started'>Get Started</Link>
+          <Link to="/in" className="get-started">
+            Get Started
+          </Link>
         )}
       </div>
     </header>
