@@ -5,7 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faSync, faCode } from '@fortawesome/free-solid-svg-icons';
 import { TailSpin } from 'react-loader-spinner';
 import NoResults from './NoResults';
+import {useNavigate} from 'react-router-dom';
 import '../styles/Repos.css';
+import Header from './Header';
 
 const Repos = () => {
   const [searchText, setSearchText] = useState('');
@@ -14,6 +16,7 @@ const Repos = () => {
   const [searchMade, setSearchMade] = useState(false);
   const user = JSON.parse(localStorage.getItem('user'));
   const accessToken = user?.access;
+  const navigate = useNavigate();
 
   const formatDate = (dateString) => {
     const date = parseISO(dateString);
@@ -40,6 +43,8 @@ const Repos = () => {
         setSearchResults(results);
       } catch (error) {
         console.error('Error searching GitHub repos:', error);
+        navigate('/in');
+
       } finally {
         setLoading(false);
       }
@@ -47,6 +52,8 @@ const Repos = () => {
   };
 
   return (
+    <>
+    <Header/>
     <div className="repos-container">
       <div className="search-containers">
         <input
@@ -95,6 +102,7 @@ const Repos = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 
