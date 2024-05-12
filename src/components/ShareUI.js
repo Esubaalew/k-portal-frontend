@@ -28,7 +28,7 @@ const ShareUI = () => {
   }, []);
 
   const handlePost = (content) => {
-    // Implement posting functionality here
+
     console.log('Posting:', content);
   };
 

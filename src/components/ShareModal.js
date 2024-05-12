@@ -1,9 +1,9 @@
-// ShareModal.js
 import React, { useState, useEffect } from 'react';
 import '../styles/ShareModal.css';
 import { addResource } from '../API/resources';
+import { getAllLanguages } from '../API/languages'; // Import the getAllLanguages function
 import { getLoggedInUser } from '../API/auth';
-import {InfinitySpin} from 'react-loader-spinner'
+import { InfinitySpin } from 'react-loader-spinner';
 
 const ShareModal = ({ onClose, onPost }) => {
   const [content, setContent] = useState('');
@@ -11,14 +11,16 @@ const ShareModal = ({ onClose, onPost }) => {
   const [linkURL, setLinkURL] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const [file, setFile] = useState(null);
-  const [language, setLanguage] = useState('');
+  const [language, setLanguage] = useState(null); // State for selected language
   const [topic, setTopic] = useState('');
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [languages, setLanguages] = useState([]); // State to store the list of languages
   const Token = JSON.parse(localStorage.getItem('user'));
   const accessToken = Token ? Token.access : null;
 
+  // Fetch the list of languages when the component mounts
   useEffect(() => {
     const fetchLoggedInUser = async () => {
       const Token = JSON.parse(localStorage.getItem('user'));
@@ -28,6 +30,21 @@ const ShareModal = ({ onClose, onPost }) => {
     };
 
     fetchLoggedInUser();
+
+    const fetchLanguages = async () => {
+      try {
+        const languages = await getAllLanguages();
+        // Set the initial value of the language dropdown to the first language in the list
+        if (languages.length > 0) {
+          setLanguage(languages[1]); 
+        }
+        setLanguages(languages); // Set the fetched languages in the state
+      } catch (error) {
+        console.error('Error fetching languages:', error);
+      }
+    };
+
+    fetchLanguages();
   }, []);
 
   const handleInputChange = (event) => {
@@ -46,13 +63,14 @@ const ShareModal = ({ onClose, onPost }) => {
   };
 
   const handleFileChange = (event) => {
-    const file = event.target.files[0];
+    const newFile = event.target.files[0];
     if (selectedFormat === 'image') {
-      setImageFile(file);
+      setImageFile(newFile);
     } else if (selectedFormat === 'file') {
-      setFile(file);
+      setFile(newFile);
     }
   };
+  
 
   const handlePost = async () => {
     if (!content || !language || !topic || (selectedFormat === 'link' && !linkURL) || (selectedFormat === 'image' && !imageFile) || (selectedFormat === 'file' && !file)) {
@@ -70,7 +88,8 @@ const ShareModal = ({ onClose, onPost }) => {
 
       const formData = new FormData();
       formData.append('content', content);
-      formData.append('language', language);
+      formData.append('language', language.id);
+      formData.append('language_name', language.name);
       formData.append('caption', content);
       formData.append('topic', topic);
       formData.append('owner', loggedInUser.id);
@@ -85,6 +104,7 @@ const ShareModal = ({ onClose, onPost }) => {
 
       await addResource(formData, accessToken);
       setSuccessMessage('Resource posted successfully!');
+      onPost();
     } catch (error) {
       console.error('Error posting resource:', error);
       alert('Failed to post resource. Please try again later.');
@@ -92,6 +112,7 @@ const ShareModal = ({ onClose, onPost }) => {
       setLoading(false);
     }
   };
+
   const handleCloseSuccessMessage = () => {
     setSuccessMessage(''); // Clear the success message
     onClose(); // Close the modal
@@ -106,10 +127,10 @@ const ShareModal = ({ onClose, onPost }) => {
         <hr className="share-modal-separator" />
         {loading ? (
           <InfinitySpin
-          visible={true}
-          width="200"
-          color="#4fa94d"
-          ariaLabel="infinity-spin-loading"
+            visible={true}
+            width="200"
+            color="#4fa94d"
+            ariaLabel="infinity-spin-loading"
           />
         ) : successMessage ? (
           <>
@@ -125,13 +146,18 @@ const ShareModal = ({ onClose, onPost }) => {
                 value={content}
                 onChange={handleInputChange}
               ></textarea>
-              <input
-                type="text"
-                className="share-modal-text-input"
-                placeholder="Language"
-                value={language}
-                onChange={(e) => setLanguage(e.target.value)}
-              />
+             <select
+  className="share-modal-select"
+  value={language ? language.id : ''}
+  onChange={(e) => setLanguage(languages.find(lang => lang.id === parseInt(e.target.value)))}
+>
+  {languages.map((lang) => (
+    <option key={lang.id} value={lang.id}>{lang.name}</option>
+  ))}
+</select>
+
+
+
               <input
                 type="text"
                 className="share-modal-text-input"
@@ -197,8 +223,6 @@ const ShareModal = ({ onClose, onPost }) => {
       </div>
     </div>
   );
-  
-  
 };
 
 export default ShareModal;

@@ -11,7 +11,7 @@ import { getMetadataForResource,
    getLikesForResource, unlikeResource } from '../API/resources';
 
 const ResourceCard = ({ resource }) => {
-  const { id, owner, caption, url, file, photo, language, topic, date_shared, date_modified, comments_count } = resource;
+  const { id, owner, caption, url, file, photo, language_name, topic, date_shared, date_modified, comments_count } = resource;
   const [ownerData, setOwnerData] = useState(null);
   const [fileMetadata, setFileMetadata] = useState(null);
   const [expanded, setExpanded] = useState(false);
@@ -225,7 +225,7 @@ const ResourceCard = ({ resource }) => {
   <div className="info-item">
     <i className="fas fa-code info-icon"></i>
     <span className="info-label">:</span>
-    <span className="info-value">{resource ? language : 'Loading...'}</span>
+    <span className="info-value">{resource  ? language_name : 'Loading...'}</span>
   </div>
   <div className="info-item">
     <i className="fas fa-clock info-icon"></i>
