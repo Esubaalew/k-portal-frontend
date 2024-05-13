@@ -1,7 +1,7 @@
 // Header.js
 import React, { useState, useEffect, Suspense } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLaptopCode, faUsers, faCodeBranch } from '@fortawesome/free-solid-svg-icons';
+import { faLaptopCode, faUsers, faCodeBranch, faChartLine  } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Header.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { getLoggedInUser } from '../API/auth';
@@ -54,15 +54,21 @@ function Header() {
               <li>
                 <Link to="/community" className="nav-icon">
                   <FontAwesomeIcon icon={faUsers} />
-                  <span className="nav-text">Community</span>
+                  <span className="nav-text"> Community</span>
                 </Link>
               </li>
               <li>
                 <Link to="/repos" className="nav-icon">
                   <FontAwesomeIcon icon={faCodeBranch} />
-                  <span className="nav-text">Repos</span>
+                  <span className="nav-text"> Repos</span>
                 </Link>
               </li>
+              <li>
+              <Link to="/ranker" className="nav-icon">
+        <FontAwesomeIcon icon={faChartLine} />
+        <span className="nav-text"> Analysis</span>
+      </Link>
+                </li>
             </ul>
           </nav>
         </>
