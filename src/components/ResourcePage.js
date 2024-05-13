@@ -155,7 +155,7 @@ const ResourcePage = () => {
   <div className="info-item">
     <i className="fas fa-code info-icon"></i>
     <span className="info-label">:</span>
-    <span className="info-value">{resource ? resource.language : 'Loading...'}</span>
+    <span className="info-value">{resource ? resource.language_name : 'Loading...'}</span>
   </div>
   <div className="info-item">
     <i className="fas fa-clock info-icon"></i>
