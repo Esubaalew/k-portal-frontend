@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ResourceCard from './ResourceCard';
 import { getAllResources } from '../API/resources';
 import '../styles/ResourceList.css';
+import { FallingLines } from 'react-loader-spinner';
 
 const ResourceList = () => {
   const [resources, setResources] = useState([]);
@@ -27,7 +28,16 @@ const ResourceList = () => {
   }, []);
 
   if (isLoading) {
-    return <div className="resource-list-loading">Loading...</div>;
+    return (
+      <div className="resource-list-loading">
+        <FallingLines 
+          color="#4fa94d" 
+          width="100" 
+          visible={true} 
+          ariaLabel="falling-lines-loading"
+        />
+      </div>
+    );
   }
 
   return (
