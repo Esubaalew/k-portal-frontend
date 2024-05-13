@@ -94,7 +94,7 @@ const Search = () => {
                         {result.topic}
                       </div>
                       <div className="resource-language">
-                        {result.language}
+                        {result.language_name}
                       </div>
                     </div>
                   )}

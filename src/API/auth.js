@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const domain = 'https://portal.esube.com.et/';
+// const domain = 'http://localhost:8000/';
 
 // Function to sign up a user
 export const signUp = async (userData) => {

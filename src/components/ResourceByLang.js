@@ -13,13 +13,10 @@ const ResourceByLang = () => {
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        const userData = JSON.parse(localStorage.getItem('user'));
-        const accessToken = userData ? userData.access : null;
-        if (accessToken) {
+  
         
-          const resourcesData = await getResourcesByLanguage(languageId, accessToken);
-          setResources(resourcesData);
-        }
+        const resourcesData = await getResourcesByLanguage(languageId);
+        setResources(resourcesData);
         setIsLoading(false);
       } catch (error) {
         console.error('Error fetching resources:', error.message);

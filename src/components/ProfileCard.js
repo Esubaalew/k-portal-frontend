@@ -204,7 +204,7 @@ const ProfilePage = () => {
                     <div key={resource.id} className="resource-card">
                       <div className="resource-header">
                         <span className="resource-topic" style={{ color: '#007bff' }}>{resource.topic}</span>
-                        <span className="resource-language" style={{ color: '#555' }}>{resource.language}</span>
+                        <span className="resource-language" style={{ color: '#555' }}>{resource.language_name}</span>
                       </div>
                       <p className="resource-caption">
                         {resource.caption.length > 100 && expandedResource !== resource.id ? (

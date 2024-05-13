@@ -109,12 +109,12 @@ const getLikesForResource = async (resourceId, accessToken) => {
 };
 
 // Function to fetch resources by language
-const getResourcesByLanguage = async (languageId,accessToken) => {
+const getResourcesByLanguage = async (languageId) => {
     try {
         const response = await axios.get(`${domain}api/resources/language/${languageId}/`, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
+            // headers: {
+            //     Authorization: `Bearer ${accessToken}`
+            // }
         });
         return response.data;
     } catch (error) {
