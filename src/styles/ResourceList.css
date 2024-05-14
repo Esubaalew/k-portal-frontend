@@ -31,3 +31,21 @@
     padding: 10px; 
   }
 }
+
+
+.no-resources-message {
+  background-color: #f8d7da; 
+  color: #721c24; 
+  border: 1px solid #f5c6cb; 
+  border-radius: 0.25rem; 
+  padding: 1rem; 
+  margin: 1rem 0; 
+  text-align: center; 
+  font-size: 1rem; 
+  font-weight: bold;
+}
+
+.no-resources-message:hover {
+  background-color: #f5c6cb; 
+  cursor: pointer; 
+}
