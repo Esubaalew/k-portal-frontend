@@ -13,6 +13,8 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
+import Footer from './Footer';
+import Header from './Header';
 
 ChartJS.register(
   CategoryScale,
@@ -44,15 +46,13 @@ const Analysis = () => {
         setUsersData(users);
       } catch (error) {
         console.error('Error fetching data:', error);
+        // navigate('/in');
       }
       setLoading(false);
     };
 
     if (accessToken) {
       fetchData();
-    }
-    if (!accessToken){
-        navigate('/in');
     }
   }, [accessToken, navigate]);
 
@@ -74,6 +74,8 @@ const Analysis = () => {
   };
 
   return (
+    <>
+    <Header/>
     <div className="analysis-container">
       <div className="btns-container">
   <button onClick={() => setCurrentAnalysis('resources')} className={currentAnalysis === 'resources' ? 'selected' : 'button'}>Resources</button>
@@ -112,6 +114,8 @@ const Analysis = () => {
         </div>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 
