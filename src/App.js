@@ -12,6 +12,7 @@ import Reset from './components/Reset';
 import MakePass from './components/MakePass';
 import Repos from './components/Repos';
 import ResourceByLang from './components/ResourceByLang';
+import Analysis from './components/Analysis';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/resource/:id" element={<ResourcePage />} />
         <Route path='/password-reset-confirm/:uidb64/:token' element={<MakePass />} />
         <Route path='/resources/language/:languageId' element={<ResourceByLang />} />
+        <Route path='/analysis' element={<Analysis />} />
         <Route path='/repos' element={<Repos />} />
         <Route path='/reset' element={<Reset />} />
         <Route path="*" element={<NotFound />} />

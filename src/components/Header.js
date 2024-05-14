@@ -64,7 +64,7 @@ function Header() {
                 </Link>
               </li>
               <li>
-              <Link to="/ranker" className="nav-icon">
+              <Link to="/analysis" className="nav-icon">
         <FontAwesomeIcon icon={faChartLine} />
         <span className="nav-text"> Analysis</span>
       </Link>
