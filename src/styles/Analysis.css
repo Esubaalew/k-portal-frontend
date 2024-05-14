@@ -63,3 +63,19 @@
     font-size: 14px;
   }
   
+
+  @media screen and (max-width: 768px) {
+    .content-container {
+      flex-direction: column;
+    }
+  
+    .chart-container {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  
+    .list-container {
+      width: 100%;
+    }
+    
+  }
