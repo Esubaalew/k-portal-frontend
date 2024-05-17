@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; // Import useParams hook
 import ResourceCard from './ResourceCard';
 import { getResourcesByLanguage } from '../API/resources';
 import '../styles/ResourceList.css';
+import { FallingLines } from 'react-loader-spinner';
 
-const ResourceByLang = () => {
+const ResourceByLang = ({ languageId }) => { 
   const [resources, setResources] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  
-  const { languageId } = useParams();
 
   useEffect(() => {
     const fetchResources = async () => {
       try {
-  
-        
         const resourcesData = await getResourcesByLanguage(languageId);
         setResources(resourcesData);
         setIsLoading(false);
@@ -25,10 +21,14 @@ const ResourceByLang = () => {
     };
 
     fetchResources();
-  }, [languageId]); 
+  }, [languageId]);
 
   if (isLoading) {
-    return <div className="resource-list-loading">Loading...</div>;
+    return (
+      <div className="resource-list-loading">
+        <FallingLines color="#4fa94d" width="100" visible={true} ariaLabel="falling-lines-loading" />
+      </div>
+    );
   }
 
   return (
@@ -42,4 +42,4 @@ const ResourceByLang = () => {
   );
 };
 
-export default ResourceByLang
+export default ResourceByLang;

@@ -1,8 +1,47 @@
+/* Feed.css */
 .feed-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 120px;
-    min-height: calc(100vh - 120px);
-    padding-bottom: 100px;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 120px;
+  min-height: calc(100vh - 120px);
+  padding-bottom: 100px;
+}
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f7f7f7;
+}
+
+.filter-container label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.filter-container select {
+  padding: 8px 16px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-container select:hover,
+.filter-container select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Add styles for options for better cross-browser styling */
+.filter-container option {
+  padding: 8px;
+  font-size: 16px;
+}
