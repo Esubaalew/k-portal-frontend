@@ -13,6 +13,7 @@
     "@vercel/analytics": "^1.2.2",
     "axios": "^1.6.8",
     "chart.js": "^4.4.2",
+    "chartjs-plugin-datalabels": "^2.2.0",
     "date-fns": "^3.6.0",
     "mdb-react-ui-kit": "^8.0.0",
     "react": "^18.2.0",
