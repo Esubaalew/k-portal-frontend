@@ -1,12 +1,22 @@
 /* Feed.css */
 .feed-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
   padding-top: 120px;
   min-height: calc(100vh - 120px);
   padding-bottom: 100px;
 }
+
+.feed-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%; /* Adjust the width as needed */
+}
+
+.language-proportions-chart {
+  width: 30%; }
 
 .filter-container {
   display: flex;

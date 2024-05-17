@@ -32,7 +32,7 @@ const getLanguageById = async (languageId) => {
 // Function to get language proportions by ID
 const getLanguageProportionsById = async (languageId, accessToken) => {
     try {
-        const response = await axios.get(`${domain}api/languages/${languageId}/proportions/`, {
+        const response = await axios.get(`${domain}api/languages/${languageId}/proportion/`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }

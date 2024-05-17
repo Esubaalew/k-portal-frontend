@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ShareUI from './ShareUI';
 import ResourceList from './ResourceList';
-import ResourceByLang from './ResourceByLang'; 
-import { getAllResources} from '../API/resources';
+import ResourceByLang from './ResourceByLang';
+import LanguageProportionsChart from './LanguageProportionsChart';
+import { getAllResources } from '../API/resources';
 import { getAllLanguages } from '../API/languages';
 import '../styles/Feed.css';
 
@@ -48,21 +49,24 @@ const Feed = () => {
 
   return (
     <div className="feed-container">
-      <ShareUI />
-      <div className="filter-container">
-        <label htmlFor="language-filter">Filter by Language:</label>
-        <select id="language-filter" value={selectedLanguage} onChange={handleLanguageChange}>
-          <option value="">All</option>
-          {languages.map((language) => (
-            <option key={language.id} value={language.id}>{language.name}</option> 
-          ))}
-        </select>
+      <div className="feed-content">
+        <ShareUI />
+        <div className="filter-container">
+          <label htmlFor="language-filter">Filter by Language:</label>
+          <select id="language-filter" value={selectedLanguage} onChange={handleLanguageChange}>
+            <option value="">All</option>
+            {languages.map((language) => (
+              <option key={language.id} value={language.id}>{language.name}</option>
+            ))}
+          </select>
+        </div>
+        {selectedLanguage ? (
+          <ResourceByLang languageId={selectedLanguage} />
+        ) : (
+          <ResourceList resources={resources} isLoading={isLoading} />
+        )}
       </div>
-      {selectedLanguage ? ( 
-        <ResourceByLang languageId={selectedLanguage} /> 
-      ) : (
-        <ResourceList resources={resources} isLoading={isLoading} /> 
-      )}
+      <LanguageProportionsChart selectedLanguage={selectedLanguage} />
     </div>
   );
 };
