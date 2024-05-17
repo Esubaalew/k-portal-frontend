@@ -5,6 +5,8 @@ import { getUserByUsername, getResourcesByUser, getUserFollowers, getUserFollowi
 import { useParams, useNavigate } from 'react-router-dom';
 import { getLoggedInUser } from '../API/auth';
 import Header from './Header';
+import { formatDistanceToNow } from 'date-fns';
+
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
@@ -50,7 +52,6 @@ const ProfilePage = () => {
         setLoading(false);
       } catch (error) {
         console.error('Error fetching user resources:', error.message);
-        // Prompt user to login if session expired
         navigate('/in');
       }
     };
@@ -78,7 +79,6 @@ const ProfilePage = () => {
         }
       } catch (error) {
         console.error('Error fetching followers and following:', error.message);
-        // Prompt user to login if session expired
         navigate('/in');
       }
     };
@@ -94,25 +94,28 @@ const ProfilePage = () => {
       }
   
       if (isFollowing) {
-        // Unfollow the user
         const unfollowResponse = await unfollowUser(user.id, accessToken);
         console.log('Unfollow response:', unfollowResponse);
         setIsFollowing(false);
       } else {
-        // Follow the user
         const followResponse = await followUser(user.id, accessToken);
         console.log('Follow response:', followResponse);
         setIsFollowing(true);
       }
     } catch (error) {
       console.error('Error toggling follow:', error.message);
-      // Handle error - show error message to the user
     }
   };
   
   const handleTabClick = (tab) => {
     setSelectedTab(tab);
   };
+
+
+  const formatRelativeDate = (date) => {
+    return formatDistanceToNow(new Date(date), { addSuffix: true });
+  };
+
 
   return (
     <>
@@ -221,7 +224,8 @@ const ProfilePage = () => {
                           </>
                         )}
                       </p>
-                      <div className="resource-date">Shared on: {new Date(resource.date_shared).toLocaleDateString()}</div>
+                      <div className="resource-date">Shared: {formatRelativeDate(resource.date_shared)}</div>
+
                     </div>
                   ))
                 )}
