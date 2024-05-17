@@ -40,7 +40,6 @@
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
-/* Add styles for options for better cross-browser styling */
 .filter-container option {
   padding: 8px;
   font-size: 16px;

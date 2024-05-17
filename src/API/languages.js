@@ -29,7 +29,23 @@ const getLanguageById = async (languageId) => {
 };
 
 
+// Function to get language proportions by ID
+const getLanguageProportionsById = async (languageId, accessToken) => {
+    try {
+        const response = await axios.get(`${domain}api/languages/${languageId}/proportions/`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching language proportions:', error.response.data);
+        throw new Error('Error fetching language proportions');
+    }
+};
+
 export { 
     getAllLanguages, 
-    getLanguageById
+    getLanguageById,
+    getLanguageProportionsById
 };
