@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { getUserById } from '../API/users';
-import { getResourceById, getMetadataForResource } from '../API/resources';
-import { getLikesForResource } from '../API/resources';
+import { getResourceById, getMetadataForResource, getLikesForResource } from '../API/resources';
 import ProfileIcon from './ProfileIcon';
 import LikeCommentButtons from './LikeCommentButtons';
 import { getLoggedInUser } from '../API/auth';
 import '../styles/ResourcePage.css';
-import { useNavigate } from 'react-router-dom';
+import { formatDistanceToNow } from 'date-fns';
 
 const ResourcePage = () => {
   const { id } = useParams();
   const [resource, setResource] = useState(null);
   const [ownerData, setOwnerData] = useState(null);
   const [likersDetails, setLikersDetails] = useState([]);
-    const [isLiked, setIsLiked] = useState(false);
-    const [loggedInUser, setLoggedInUser] = useState(null);
+  const [isLiked, setIsLiked] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState(null);
   const [showLikers, setShowLikers] = useState(false);
   const [likers, setLikers] = useState([]); 
   const userData = JSON.parse(localStorage.getItem('user'));
@@ -43,6 +42,7 @@ const ResourcePage = () => {
     
     checkIfLiked();
   }, [id, accessToken, userData, navigate]);
+
   useEffect(() => {
     const fetchLoggedInUser = async () => {
       try {
@@ -57,7 +57,6 @@ const ResourcePage = () => {
 
     fetchLoggedInUser();
   }, [accessToken]);
-  
 
   useEffect(() => {
     const fetchLikers = async () => {
@@ -73,6 +72,7 @@ const ResourcePage = () => {
 
     fetchLikers();
   }, [id, accessToken]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -87,14 +87,12 @@ const ResourcePage = () => {
           setLikersDetails(details);
         }
 
-        // Fetch file metadata
         if (fetchedResource.file) {
           const fileMetadata = await getMetadataForResource(id, accessToken);
           setResource(prevState => ({ ...prevState, fileMetadata }));
         }
       } catch (error) {
         console.error('Error fetching resource data:', error);
-
       }
     };
 
@@ -103,6 +101,10 @@ const ResourcePage = () => {
 
   const handleToggleLikers = () => {
     setShowLikers(!showLikers);
+  };
+
+  const formatTime = (time) => {
+    return formatDistanceToNow(new Date(time), { addSuffix: true });
   };
 
   return (
@@ -123,7 +125,7 @@ const ResourcePage = () => {
           ) : (
             <div className="loading">Loading...</div>
           )}
-          <div className="time">{resource ? new Date(resource.date_shared).toLocaleString() : 'Loading...'}</div>
+          <div className="time">{resource ? formatTime(resource.date_shared) : 'Loading...'}</div>
         </div>
       </div>
       <div className="resource-details">
@@ -146,26 +148,23 @@ const ResourcePage = () => {
             <img src={resource.photo} alt="Resource" className="photo" />
           </div>
         )}
-       <div className="additional-info">
-  <div className="info-item">
-    <i className="fas fa-bookmark info-icon"></i>
-    <span className="info-label">:</span>
-    <span className="info-value">{resource ? resource.topic : 'Loading...'}</span>
-  </div>
-  <div className="info-item">
-    <i className="fas fa-code info-icon"></i>
-    <span className="info-label">:</span>
-    <span className="info-value">{resource ? resource.language_name : 'Loading...'}</span>
-  </div>
-  <div className="info-item">
-    <i className="fas fa-clock info-icon"></i>
-    <span className="info-label">Edited:</span>
-    <span className="info-value">{resource ? new Date(resource.date_modified).toLocaleString() : 'Loading...'}</span>
-  </div>
-</div>
-
-
-
+        <div className="additional-info">
+          <div className="info-item">
+            <i className="fas fa-bookmark info-icon"></i>
+            <span className="info-label">:</span>
+            <span className="info-value">{resource ? resource.topic : 'Loading...'}</span>
+          </div>
+          <div className="info-item">
+            <i className="fas fa-code info-icon"></i>
+            <span className="info-label">:</span>
+            <span className="info-value">{resource ? resource.language_name : 'Loading...'}</span>
+          </div>
+          <div className="info-item">
+            <i className="fas fa-clock info-icon"></i>
+            <span className="info-label">Edited:</span>
+            <span className="info-value">{resource ? new Date(resource.date_modified).toLocaleString() : 'Loading...'}</span>
+          </div>
+        </div>
       </div>
       <div className="likes-info" onClick={handleToggleLikers}>
         {showLikers && (
@@ -176,13 +175,11 @@ const ResourcePage = () => {
             ))}
           </div>
         )}
-       
-       <div className="likes-count">
+        <div className="likes-count">
           {isLiked || (loggedInUser && likers.some(liker => liker.user === loggedInUser.id)) ? (
-           <span>
-           {likers.length > 1 ? `You and ${likers.length - 1} others liked this` : `You liked this`}
-         </span>
-         
+            <span>
+              {likers.length > 1 ? `You and ${likers.length - 1} others liked this` : `You liked this`}
+            </span>
           ) : (
             <span>{likers.length} {likers.length === 1 ? 'person' : 'people'} liked this</span>
           )}
