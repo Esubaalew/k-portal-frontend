@@ -1,11 +1,11 @@
 .feed-container {
   display: flex;
-  justify-content: space-between;/* Changed from space-between to space-around for even spacing */
+  justify-content: space-between;
   align-items: flex-start;
   padding-top: 120px;
   min-height: calc(100vh - 120px);
   padding-bottom: 100px;
-  gap: 1px; /* Adds a gap between children elements */
+  gap: 1px; 
 
 }
 
@@ -18,7 +18,7 @@
 }
 
 .language-proportions-chart {
-  width: calc(30% - 10px); /* Adjusted width to account for the gap */
+  width: calc(30% - 10px); 
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -27,7 +27,7 @@
   flex: 0 1 30%;
 }
 
-/* Enhancements for the filter container */
+
 .filter-container {
   display: flex;
   align-items: center;
@@ -37,7 +37,22 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #f7f7f7;
-  border: 1px solid #e1e1e1; /* New border color for a cleaner look */
+  border: 1px solid #e1e1e1; 
 }
 
-/* Rest of the styles remain unchanged */
+
+
+@media screen and (max-width: 780px) {
+  .feed-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .language-proportions-chart {
+    display: none; 
+  }
+
+  .feed-content {
+    width: 100%;
+  }
+}
