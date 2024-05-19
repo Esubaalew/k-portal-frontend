@@ -1,40 +1,92 @@
 /* Modal.css */
-.modal {
-    position: fixed;
-    top: 10%;
+.modall {
+  position: fixed;
+  top: 10%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+}
+
+.modall-content {
+  width: 100%;
+  max-height: calc(100% - 40px);
+  margin-top: 20px;
+}
+
+.resultt-item-link {
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+}
+
+.resultt-item {
+  padding: 15px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #e0e0e0;
+}
+
+.resultt-item:hover {
+  background-color: #f8f8f8;
+}
+
+.user-icon {
+  font-weight: bold;
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+
+.no-results, .loadingg-indicator {
+  text-align: center;
+  padding: 20px;
+  font-size: 18px;
+}
+
+.loadingg-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Add a simple spinner animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loadingg-indicator::before {
+  content: '';
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@media screen and (max-width: 768px) {
+  .modall {
+    width: 80%;
+    height: 80%;
     left: 10%;
-    width: 40%; 
-    height: 70%;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    top: 10%;
   }
-  
-  .modal-content {
-    overflow-y: auto;
-    max-height: calc(100% - 40px);
-  }
-  
-  .result-item {
-    padding: 10px;
-    cursor: pointer;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  .result-item:last-child {
-    border-bottom: none;
-  }
-  
-  .result-item:hover {
-    background-color: #f0f0f0;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .modal {
-      width: 60%;
-      height: 50%;
-      left: 10%;
-    }
-    
-  }
+}
