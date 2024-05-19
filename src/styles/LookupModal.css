@@ -41,6 +41,30 @@
   margin-bottom: 20px;
 }
 
+.modal-title {
+  font-size: 24px;
+  color: #333;
+  margin: 0;
+}
+
+.close-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #007bff;
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+.close-button:hover {
+  text-decoration: none;
+}
+
+.topic-heading {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 10px;
+}
 .modal-header h2 {
   font-size: 24px;
   color: #333;
@@ -98,4 +122,26 @@
 
 .modal-body button:hover {
   text-decoration: none;
+}
+
+.search-results {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.search-results.expanded {
+  max-height: 500px; /* Adjust as needed */
+}
+
+
+
+.article-details.focus {
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease-in-out;
+}
+
+.article-details.focus:hover {
+  transform: scale(1.05);
 }

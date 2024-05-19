@@ -1,3 +1,5 @@
+// LookupModal.js
+
 import React, { useState, useEffect } from 'react';
 import '../styles/LookupModal.css';
 import { searchWikipedia, getWikipediaArticle } from '../API/wiki';
@@ -8,6 +10,7 @@ const LookupModal = ({ topic, onClose, showModal }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedArticle, setSelectedArticle] = useState(null);
+  const [expanded, setExpanded] = useState(false);
   const user = JSON.parse(localStorage.getItem('user'));
   const accessToken = user ? user.access : null;
 
@@ -15,10 +18,13 @@ const LookupModal = ({ topic, onClose, showModal }) => {
     setSearchResults([]);
   }, []);
 
+  const toggleExpand = () => {
+    setExpanded(!expanded);
+  };
+
   const handleSearch = async () => {
     try {
       setLoading(true);
-      
       const data = await searchWikipedia(query, accessToken);
       setSearchResults(data);
       setLoading(false);
@@ -34,6 +40,7 @@ const LookupModal = ({ topic, onClose, showModal }) => {
       const article = await getWikipediaArticle(title, accessToken);
       setSelectedArticle(article);
       setLoading(false);
+      setExpanded(false);
     } catch (error) {
       setError(error.message);
       setLoading(false);
@@ -44,14 +51,14 @@ const LookupModal = ({ topic, onClose, showModal }) => {
     <div className={`modal ${showModal ? 'open' : ''}`}>
       <div className="modal-content">
         <div className="modal-header">
-          <h2>Wikipedia Lookup</h2>
-          <button onClick={onClose}>Close</button>
+          <h2 className="modal-title">ENIMAR Lookup</h2>
+          <button className="close-button" onClick={onClose}>Close</button>
         </div>
         <div className="modal-body">
-          <h3>Topic: {topic}</h3>
+          <h3 className="topic-heading">Topic: {topic}</h3>
           <input
             type="text"
-            placeholder="Search Wikipedia"
+            placeholder="Search Wikipedia..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
@@ -59,15 +66,20 @@ const LookupModal = ({ topic, onClose, showModal }) => {
             {loading ? 'Searching...' : 'Search'}
           </button>
           {error && <p className="error-message">{error}</p>}
-          <ul>
+          <button onClick={toggleExpand} className="toggle-button">
+            {expanded ? 'Hide Results' : 'Show Results'}
+          </button>
+          <div className={`search-results ${expanded ? 'expanded' : ''}`}>
             {searchResults.map((result) => (
-              <li key={result.title}>
-                <button onClick={() => handleGetArticle(result.title)}>{result.title}</button>
-              </li>
+              <div key={result.title} className="search-result-item">
+                <button onClick={() => handleGetArticle(result.title)}>
+                  {result.title}
+                </button>
+              </div>
             ))}
-          </ul>
+          </div>
           {selectedArticle && (
-            <div className="article-details">
+            <div className="article-details focus">
               <h3>{selectedArticle.title}</h3>
               <p>{selectedArticle.summary}</p>
             </div>
