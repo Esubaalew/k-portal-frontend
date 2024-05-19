@@ -6,13 +6,14 @@
   min-height: calc(100vh - 120px);
   padding-bottom: 100px;
   gap: 1px; /* Adds a gap between children elements */
+
 }
 
 .feed-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: calc(70% - 10px);
+  width: calc(70% - 1px);
   flex: 1;
 }
 

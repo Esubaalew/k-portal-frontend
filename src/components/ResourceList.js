@@ -5,10 +5,12 @@ import { getUserFollowing } from '../API/users';
 import { getLoggedInUser } from '../API/auth';
 import '../styles/ResourceList.css';
 import { FallingLines } from 'react-loader-spinner';
+import LookupModal from './LookupModal';
 
 const ResourceList = () => {
   const [resources, setResources] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedTopic, setSelectedTopic] = useState(null);
 
   useEffect(() => {
     const fetchResources = async () => {
@@ -41,6 +43,14 @@ const ResourceList = () => {
 
     fetchResources();
   }, []);
+  
+  const handleTopicClick = (topic) => {
+    setSelectedTopic(topic);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedTopic(null);
+  };
 
   if (isLoading) {
     return (
@@ -62,9 +72,10 @@ const ResourceList = () => {
     <div className="resource-list-container">
       <div className="resource-list">
         {resources.map((resource) => (
-          <ResourceCard key={resource.id} resource={resource} />
+          <ResourceCard key={resource.id} resource={resource} onTopicClick={handleTopicClick}/>
         ))}
       </div>
+      {selectedTopic && <LookupModal topic={selectedTopic} onClose={handleCloseModal} showModal={true} />}
     </div>
   );
 };

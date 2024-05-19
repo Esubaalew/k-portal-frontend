@@ -4,14 +4,12 @@ import { formatDistanceToNow } from 'date-fns';
 import '../styles/ResourceCard.css';
 import ProfileIcon from './ProfileIcon';
 import LikeCommentButtons from './LikeCommentButtons';
+import LookupModal from './LookupModal';
 import { getUserById } from '../API/users';
 import { getLoggedInUser } from '../API/auth';
-import { getMetadataForResource, 
-  likeResource, 
-  getResourceById,
-   getLikesForResource, unlikeResource } from '../API/resources';
+import { getMetadataForResource, likeResource, getResourceById, getLikesForResource, unlikeResource } from '../API/resources';
 
-const ResourceCard = ({ resource }) => {
+const ResourceCard = ({ resource, onTopicClick }) => {
   const { id, owner, caption, url, file, photo, language_name, topic, date_shared, date_modified, comments_count } = resource;
   const [ownerData, setOwnerData] = useState(null);
   const [fileMetadata, setFileMetadata] = useState(null);
@@ -24,6 +22,8 @@ const ResourceCard = ({ resource }) => {
   const [likersDetails, setLikersDetails] = useState([]);
   const userData = JSON.parse(localStorage.getItem('user'));
   const accessToken = userData ? userData.access : null;
+  const [showModal, setShowModal] = useState(false);
+
 
   useEffect(() => {
     const fetchOwnerData = async () => {
@@ -60,7 +60,7 @@ const ResourceCard = ({ resource }) => {
       try {
         if (id && accessToken) {
           const resourceData = await getResourceById(id, accessToken);
-        
+
           if (resourceData && resourceData.likers) {
             const loggedInUserId = userData ? userData.id : null;
             const likedByLoggedInUser = resourceData.likers.some(liker => liker.user === loggedInUserId);
@@ -72,11 +72,9 @@ const ResourceCard = ({ resource }) => {
         console.error('Error checking if liked:', error.message);
       }
     };
-    
+
     checkIfLiked();
   }, [id, accessToken, userData]);
-  
-  
 
   useEffect(() => {
     const fetchLikers = async () => {
@@ -138,10 +136,10 @@ const ResourceCard = ({ resource }) => {
         console.error('Resource ID or access token is not available.');
         return;
       }
-  
+
       const hasLiked = likers.some(liker => liker.user === loggedInUser.id);
       let updatedResource;
-  
+
       if (hasLiked) {
         await unlikeResource(id, accessToken);
         updatedResource = await getResourceById(id, accessToken);
@@ -149,15 +147,13 @@ const ResourceCard = ({ resource }) => {
         await likeResource(id, accessToken);
         updatedResource = await getResourceById(id, accessToken);
       }
-  
+
       setLikesCount(updatedResource.likes_count);
       setIsLiked(!hasLiked);
     } catch (error) {
       console.error('Error liking/unliking resource:', error.message);
     }
   };
-  
-  
 
   const handleToggleLikers = async () => {
     if (!showLikers) {
@@ -218,11 +214,13 @@ const ResourceCard = ({ resource }) => {
           </div>
         )}
         <div className="additional-info">
-          <div className="info-item">
-            <i className="fas fa-bookmark info-icon"></i>
-            <span className="info-label">:</span>
-            <span className="info-value">{resource ? topic : 'Loading...'}</span>
-          </div>
+        <div className="info-item" onClick={() => onTopicClick(resource.topic)}>
+  <i className="fas fa-bookmark info-icon"></i>
+  <span className="info-label">:</span>
+  <div className="info-value">
+    {resource ? topic : 'Loading...'}
+  </div>
+</div>
           <div className="info-item">
             <i className="fas fa-code info-icon"></i>
             <span className="info-label">:</span>
@@ -255,6 +253,7 @@ const ResourceCard = ({ resource }) => {
         </div>
       </div>
       <LikeCommentButtons likesCount={likesCount} commentsCount={comments_count} onLike={handleLike} isLiked={isLiked} />
+      {showModal && <LookupModal topic={topic} onClose={() => setShowModal(false)} />}
     </div>
   );
 };

@@ -1,62 +1,56 @@
 .Footer {
-    background-color: #1a1a1a;
-    color: white;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50px;
-  }
-  
-  .Footer p {
-    margin: 0;
-    font-size: 1.1rem;
-    font-weight: 500; 
-  }
-  
-  .Footer nav ul {
-    list-style: none;
-    display: flex;
-    padding: 0;
-  }
-  
-  .Footer nav ul li {
-    margin-left: 1rem;
-  }
-  
-  .Footer nav ul li a {
-    color: white;
-    text-decoration: none;
-  }
-  
+  background-color: white;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, 0.2);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  z-index: 10;
+}
 
-@media (max-width: 768px) {
-    .Footer {
-      flex-direction: column; 
-      padding: 0.5rem; 
-      height: auto;
-    }
-  
-    .Footer p {
-      font-size: 1rem; 
-      margin-bottom: 0.5rem;
-    }
-  
-    .Footer nav ul {
-      justify-content: center; 
-      flex-wrap: wrap; 
-    }
-  
-    .Footer nav ul li {
-      margin: 0.1rem; 
-    }
-  
-    .Footer nav ul li a {
-      font-size: 0.9rem; 
-    }
+.Footer p {
+  font-size: 1rem;
+  color: black;
+  margin: 0;
+}
+
+.Footer nav ul {
+  list-style: none;
+  display: flex;
+}
+
+.Footer nav ul li {
+  margin-right: 1rem;
+}
+
+.Footer nav ul li a {
+  color: black;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.Footer nav ul li a:hover,
+.Footer nav ul li a:focus {
+  color: #4CAF50;
+}
+
+@media (max-width: 780px) {
+  .Footer {
+    padding: 0.25rem;
   }
-  
+
+  .Footer p {
+    font-size: 0.9rem;
+  }
+
+  .Footer nav ul li a {
+    font-size: 0.9rem;
+  }
+}
