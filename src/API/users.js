@@ -195,4 +195,37 @@ const updateProfilePicture = async (userId, profilePictureFile, accessToken) => 
     }
 };
 
-export { getUserById, getAllUsers, getUserByUsername, getResourcesByUser, getUserFollowers, getUserFollowing, followUser, unfollowUser, updateFirstName, updateLastName, updateBio, updateProfilePicture };
+const deactivateUser = async (userId, accessToken) => {
+    try {
+        const response = await axios.post(`${domain}api/users/${userId}/deactivate/`, {}, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error deactivating user:', error.response.data);
+        throw new Error('Error deactivating user');
+    }
+};
+
+// Function to delete a user
+const deleteUser = async (userId, accessToken) => {
+    try {
+        const response = await axios.delete(`${domain}api/users/${userId}/`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error deleting user:', error.response.data);
+        throw new Error('Error deleting user');
+    }
+};
+
+export {
+    getUserById, getAllUsers, getUserByUsername, getResourcesByUser, getUserFollowers, getUserFollowing,
+    followUser, unfollowUser, updateFirstName, updateLastName, updateBio, updateProfilePicture,
+    deactivateUser, deleteUser
+};
