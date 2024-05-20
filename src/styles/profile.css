@@ -7,12 +7,12 @@
 }
 
 .card {
-  background-color: #f3f3f3;
+  background-color: #f9f9f9;
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: left;
-  width: 500px; 
+  width: 500px;
 }
 
 .profile-card{
@@ -39,14 +39,14 @@
   font-size: 2em;
   color: white;
   background-color: #007bff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-
 .name-and-username {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  font-size: 1.2em;
 }
-
 .username {
   color: #555;
 }
@@ -67,8 +67,10 @@
   margin: 5px;
   border-radius: 5px;
   cursor: pointer;
-  flex-grow: 1; 
+  flex-grow: 1;
+  transition: background-color 0.3s ease;
 }
+
 
 .follow-btn {
   background-color: #4CAF50;
@@ -80,7 +82,6 @@
   background-color: #008CBA;
   color: white;
 }
-
 
 .tabs-container {
   display: flex;
@@ -101,6 +102,10 @@
 .tab.active {
   font-weight: bold;
   color: #007bff;
+  background-color: #f3f3f3;
+}
+
+.tab:hover {
   background-color: #f3f3f3;
 }
 
@@ -150,6 +155,7 @@
 
 .resource-topic {
   font-weight: bold;
+  font-size: 1.1em;
 }
 
 .resource-language {
@@ -160,18 +166,16 @@
   color: #666;
 }
 
-.see-more-link {
-  color: #007bff;
-  cursor: pointer;
-}
 
 .see-more-link:hover {
   text-decoration: underline;
 }
 
+.see-more-link,
 .see-less-link {
   color: #007bff;
   cursor: pointer;
+  text-decoration: underline;
 }
 
 .see-less-link:hover {
@@ -211,4 +215,30 @@
 .user-icon {
   font-size: 1.2em;
   margin-right: 5px;
+}
+
+.edit-profile-section {
+  margin-top: 20px;
+}
+
+.edit-profile-section input,
+.edit-profile-section textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.edit-profile-section input[type="file"] {
+  margin-top: 10px;
+}
+
+.edit-profile-buttons {
+  margin-top: 20px;
+}
+
+.edit-profile-buttons .btn {
+  margin-right: 10px;
 }

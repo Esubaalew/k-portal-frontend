@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import ProfileIcon from './ProfileIcon';
 import '../styles/profile.css';
-import { getUserByUsername, getResourcesByUser, getUserFollowers, getUserFollowing, getUserById, followUser, unfollowUser } from '../API/users';
+import {
+  getUserByUsername, getResourcesByUser, getUserFollowers, getUserFollowing,
+  getUserById, followUser, unfollowUser, updateFirstName, updateLastName, updateBio, updateProfilePicture
+} from '../API/users';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getLoggedInUser } from '../API/auth';
 import Header from './Header';
 import { formatDistanceToNow } from 'date-fns';
-
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
@@ -18,6 +20,11 @@ const ProfilePage = () => {
   const [following, setFollowing] = useState([]);
   const [isFollowing, setIsFollowing] = useState(false);
   const [isOwnProfile, setIsOwnProfile] = useState(false); 
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [bio, setBio] = useState('');
+  // const [profilePicture, setProfilePicture] = useState(null);
+  const [isEditingProfile, setIsEditingProfile] = useState(false); 
   const { username } = useParams();
   const userData = JSON.parse(localStorage.getItem('user'));
   const accessToken = userData ? userData.access : null;
@@ -26,13 +33,16 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const user = await getUserByUsername(username, accessToken);
-        setUser(user);
+        const fetchedUser = await getUserByUsername(username, accessToken);
+        setUser(fetchedUser);
+        setFirstName(fetchedUser.first_name);
+        setLastName(fetchedUser.last_name);
+        setBio(fetchedUser.bio);
         const loggedInUser = await getLoggedInUser(accessToken);
         setIsOwnProfile(loggedInUser.username === username);
-        if (!loggedInUser.username === username) {
+        if (loggedInUser.username !== username) {
           const followingUsers = await getUserFollowing(loggedInUser.id, accessToken);
-          const isFollowingUser = followingUsers.some(followedUser => followedUser.followed_user === user.id);
+          const isFollowingUser = followingUsers.some(followedUser => followedUser.followed_user === fetchedUser.id);
           setIsFollowing(isFollowingUser);
         }
       } catch (error) {
@@ -111,13 +121,68 @@ const ProfilePage = () => {
     setSelectedTab(tab);
   };
 
-
   const formatRelativeDate = (date) => {
     return formatDistanceToNow(new Date(date), { addSuffix: true });
   };
 
+  const handleUpdateFirstName = async () => {
+    try {
+      const updatedUser = await updateFirstName(user.id, firstName, accessToken);
+      setUser(updatedUser);
+    } catch (error) {
+      console.error('Error updating first name:', error.message);
+    }
+  };
 
-  return (
+  const handleUpdateLastName = async () => {
+    try {
+      const updatedUser = await updateLastName(user.id, lastName, accessToken);
+      setUser(updatedUser);
+    } catch (error) {
+      console.error('Error updating last name:', error.message);
+    }
+  };
+
+  const handleUpdateBio = async () => {
+    try {
+      const updatedUser = await updateBio(user.id, bio, accessToken);
+      setUser(updatedUser);
+    } catch (error) {
+      console.error('Error updating bio:', error.message);
+    }
+  };
+
+  const handleUpdateProfilePicture = async (e) => {
+    try {
+      const updatedUser = await updateProfilePicture(user.id, e.target.files[0], accessToken);
+      setUser(updatedUser);
+    } catch (error) {
+      console.error('Error updating profile picture:', error.message);
+    }
+  };
+
+  const handleEditProfile = () => {
+    setIsEditingProfile(true);
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditingProfile(false);
+    // Reset form fields
+    setFirstName(user.first_name);
+    setLastName(user.last_name);
+    setBio(user.bio);
+  };
+
+  const handleSaveChanges = () => {
+
+    setIsEditingProfile(false);
+    handleUpdateFirstName();
+    handleUpdateLastName();
+    handleUpdateBio();
+    // Profile picture is updated separately in handleUpdateProfilePicture
+  };
+
+ return (
     <>
     <Header/>
     <div className="profile-container">
@@ -133,6 +198,15 @@ const ProfilePage = () => {
             </div>
             <p className="bio">{user.bio}</p>
             <div className="button-container">
+              {isOwnProfile && !isEditingProfile && (
+                <button className="btn edit-profile-btn" onClick={handleEditProfile}>Edit Profile</button>
+              )}
+              {isOwnProfile && isEditingProfile && (
+                <button className="btn save-changes-btn" onClick={handleSaveChanges}>Save Changes</button>
+              )}
+              {isOwnProfile && isEditingProfile && (
+                <button className="btn cancel-edit-btn" onClick={handleCancelEdit}>Cancel</button>
+              )}
               {!isOwnProfile && (
                 <button className="btn follow-btn" onClick={handleFollowToggle} disabled={isFollowing}>
                   {isFollowing ? 'Unfollow' : 'Follow'}
@@ -142,6 +216,14 @@ const ProfilePage = () => {
                 <button className="btn message-btn">Message</button>
               )}
             </div>
+            {isEditingProfile && isOwnProfile && (
+              <div className="edit-profile-section">
+                <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="First Name" />
+                <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Last Name" />
+                <textarea value={bio} onChange={(e) => setBio(e.target.value)} placeholder="Bio"></textarea>
+                <input type="file" accept="image/*" onChange={(e) => handleUpdateProfilePicture(e)} />
+              </div>
+            )}
           </div>
         </div>
       )}

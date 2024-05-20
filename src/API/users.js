@@ -92,7 +92,6 @@ const getUserFollowing = async (userId, accessToken) => {
     }
 };
 
-
 // Function to follow a user
 const followUser = async (userId, accessToken) => {
     try {
@@ -123,5 +122,77 @@ const unfollowUser = async (userId, accessToken) => {
     }
 };
 
+// Function to update user's first name
+const updateFirstName = async (userId, firstName, accessToken) => {
+    try {
+        const response = await axios.patch(`${domain}api/users/${userId}/`, {
+            first_name: firstName
+        }, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error updating first name:', error.response.data);
+        throw new Error('Error updating first name');
+    }
+};
 
-export { getUserById, getAllUsers, getUserByUsername, getResourcesByUser, getUserFollowers, getUserFollowing, followUser, unfollowUser };
+// Function to update user's last name
+const updateLastName = async (userId, lastName, accessToken) => {
+    try {
+        const response = await axios.patch(`${domain}api/users/${userId}/`, {
+            last_name: lastName
+        }, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error updating last name:', error.response.data);
+        throw new Error('Error updating last name');
+    }
+};
+
+// Function to update user's bio
+const updateBio = async (userId, bio, accessToken) => {
+    try {
+        const response = await axios.patch(`${domain}api/users/${userId}/`, {
+            bio: bio
+        }, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error updating bio:', error.response.data);
+        throw new Error('Error updating bio');
+    }
+};
+
+// Function to update user's profile picture
+const updateProfilePicture = async (userId, profilePictureFile, accessToken) => {
+    const formData = new FormData();
+    formData.append('profile_picture', profilePictureFile);
+
+    try {
+        const response = await axios.patch(`${domain}api/users/${userId}/`, formData, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error updating profile picture:', error.response.data);
+        throw new Error('Error updating profile picture');
+    }
+};
+
+export { getUserById, getAllUsers, getUserByUsername, getResourcesByUser, getUserFollowers, getUserFollowing, followUser, unfollowUser, updateFirstName, updateLastName, updateBio, updateProfilePicture };
