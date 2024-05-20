@@ -317,8 +317,11 @@ const ResourceCard = ({ resource, onTopicClick }) => {
         commentsCount={comments_count}
         onLike={handleLike}
         isLiked={isLiked}
-        onComment={handleToggleComments}
+        onComment={() => setShowComments(!showComments)}
       />
+         <button onClick={handleToggleComments}>
+        {showComments ? 'Hide Comments' : 'Show Comments'}
+      </button>
       {showComments && (
         <div className="comments-section">
           <form onSubmit={handleCommentSubmit} className="comment-form">
