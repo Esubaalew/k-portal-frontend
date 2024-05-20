@@ -8,6 +8,8 @@ import LookupModal from './LookupModal';
 import { getUserById } from '../API/users';
 import { getLoggedInUser } from '../API/auth';
 import { getMetadataForResource, likeResource, getResourceById, getLikesForResource, unlikeResource } from '../API/resources';
+import {  getCommentsForResource } from '../API/likeC';
+import { addComment } from '../API/comments';
 
 const ResourceCard = ({ resource, onTopicClick }) => {
   const { id, owner, caption, url, file, photo, language_name, topic, date_shared, date_modified, comments_count } = resource;
@@ -23,7 +25,9 @@ const ResourceCard = ({ resource, onTopicClick }) => {
   const userData = JSON.parse(localStorage.getItem('user'));
   const accessToken = userData ? userData.access : null;
   const [showModal, setShowModal] = useState(false);
-
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
+  const [showComments, setShowComments] = useState(false);
 
   useEffect(() => {
     const fetchOwnerData = async () => {
@@ -121,6 +125,21 @@ const ResourceCard = ({ resource, onTopicClick }) => {
     fetchLikersDetails();
   }, [likers, accessToken]);
 
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        if (id && accessToken) {
+          const commentsData = await getCommentsForResource(id, accessToken);
+          setComments(commentsData);
+        }
+      } catch (error) {
+        console.error('Error fetching comments:', error.message);
+      }
+    };
+
+    fetchComments();
+  }, [id, accessToken]);
+
   const truncateFileName = (name) => {
     const maxLength = 20;
     return name.length > maxLength ? name.slice(0, maxLength) + '...' : name;
@@ -169,6 +188,47 @@ const ResourceCard = ({ resource, onTopicClick }) => {
     }
   };
 
+  const handleToggleComments = () => {
+    setShowComments(!showComments);
+  };
+
+  const handleCommentChange = (e) => {
+    setNewComment(e.target.value);
+  };
+
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (!newComment.trim()) {
+        console.error('Comment cannot be empty.');
+        return;
+      }
+  
+      if (!id || !accessToken || !loggedInUser || !loggedInUser.id) {
+        console.error('Invalid data to submit comment.');
+        return;
+      }
+  
+      console.log('Posting comment:', newComment, 'Resource ID:', id, 'User ID:', loggedInUser.id);
+  
+      const commentData = {
+        resource: id, // The ID of the resource
+        user: loggedInUser.id, // The ID of the user making the comment
+        comment: newComment.trim() // The actual comment text
+      };
+  
+      await addComment(commentData, accessToken);
+      setNewComment('');
+      const updatedComments = await getCommentsForResource(id, accessToken);
+      setComments(updatedComments);
+    } catch (error) {
+      console.error('Error posting comment:', error.message);
+    }
+  };
+  
+  
+
+
   return (
     <div className="resource-card">
       <div className="user-info">
@@ -214,13 +274,13 @@ const ResourceCard = ({ resource, onTopicClick }) => {
           </div>
         )}
         <div className="additional-info">
-        <div className="info-item" onClick={() => onTopicClick(resource.topic)}>
-  <i className="fas fa-bookmark info-icon"></i>
-  <span className="info-label">:</span>
-  <div className="info-value">
-    {resource ? topic : 'Loading...'}
-  </div>
-</div>
+          <div className="info-item" onClick={() => onTopicClick(resource.topic)}>
+            <i className="fas fa-bookmark info-icon"></i>
+            <span className="info-label">:</span>
+            <div className="info-value">
+              {resource ? topic : 'Loading...'}
+            </div>
+          </div>
           <div className="info-item">
             <i className="fas fa-code info-icon"></i>
             <span className="info-label">:</span>
@@ -252,7 +312,36 @@ const ResourceCard = ({ resource, onTopicClick }) => {
           )}
         </div>
       </div>
-      <LikeCommentButtons likesCount={likesCount} commentsCount={comments_count} onLike={handleLike} isLiked={isLiked} />
+      <LikeCommentButtons
+        likesCount={likesCount}
+        commentsCount={comments_count}
+        onLike={handleLike}
+        isLiked={isLiked}
+        onComment={handleToggleComments}
+      />
+      {showComments && (
+        <div className="comments-section">
+          <form onSubmit={handleCommentSubmit} className="comment-form">
+            <input
+              type="text"
+              value={newComment}
+              onChange={handleCommentChange}
+              placeholder="Add a comment..."
+              className="comment-input"
+            />
+            <button type="submit" className="comment-submit">Post</button>
+          </form>
+          <div className="comments-list">
+            {comments.map(comment => (
+              <div key={comment.id} className="comment-item">
+                <span className="comment-author">{comment.author}</span>
+                <span className="comment-content">{comment.content}</span>
+                <span className="comment-time">{formatTime(comment.date_posted)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       {showModal && <LookupModal topic={topic} onClose={() => setShowModal(false)} />}
     </div>
   );
