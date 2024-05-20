@@ -1,19 +1,23 @@
+/* Settings Modal Styles */
 .settings-modal {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: #f7f7f7; 
+  padding: 25px;
+  border-radius: 10px; 
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); 
   z-index: 1000;
+  width: 400px; 
 }
 
 .settings-modal-header {
-  font-size: 20px;
-  margin-bottom: 20px;
+  font-size: 24px; 
+  color: #333; 
+  margin-bottom: 30px;
   text-align: center;
+  font-weight: 600;
 }
 
 .settings-content {
@@ -23,16 +27,28 @@
 }
 
 .settings-content button {
-  margin: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
+  margin: 15px 0; 
+  padding: 12px 30px; 
+  font-size: 18px; 
   cursor: pointer;
+  border: none; 
+  border-radius: 5px; 
+  background-color: #5C6BC0; 
+  color: white; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+  transition: background-color 0.3s ease, transform 0.3s ease; 
+}
+
+.settings-content button:hover {
+  background-color: #3949AB; 
+  transform: translateY(-2px); 
 }
 
 .close-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 24px; 
+  color: #333; 
 }
