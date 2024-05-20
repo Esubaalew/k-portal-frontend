@@ -7,6 +7,8 @@ import LikeCommentButtons from './LikeCommentButtons';
 import { getLoggedInUser } from '../API/auth';
 import '../styles/ResourcePage.css';
 import { formatDistanceToNow } from 'date-fns';
+import Header from './Header';
+import Footer from './Footer';
 
 const ResourcePage = () => {
   const { id } = useParams();
@@ -108,6 +110,8 @@ const ResourcePage = () => {
   };
 
   return (
+    <>
+    <Header/>
     <div className="resource-cardd">
       <div className="user-info">
         {ownerData ? (
@@ -187,6 +191,8 @@ const ResourcePage = () => {
       </div>
       <LikeCommentButtons likesCount={resource ? resource.likes_count : 0} commentsCount={resource ? resource.comments_count : 0} />
     </div>
+    <Footer/>
+    </>
   );
 };
 
