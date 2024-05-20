@@ -47,7 +47,7 @@ const postComment = async (resourceId, comment, accessToken) => {
 // Function to fetch comments for a resource
 const getCommentsForResource = async (resourceId, accessToken) => {
     try {
-        const response = await axios.get(`${domain}api/resource/${resourceId}/comments`, {
+        const response = await axios.get(`${domain}api/comments/resource/${resourceId}`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
