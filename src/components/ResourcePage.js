@@ -9,6 +9,7 @@ import '../styles/ResourcePage.css';
 import { formatDistanceToNow } from 'date-fns';
 import Header from './Header';
 import Footer from './Footer';
+import DownloadModal from './DownloadModal'; 
 
 const ResourcePage = () => {
   const { id } = useParams();
@@ -18,7 +19,8 @@ const ResourcePage = () => {
   const [isLiked, setIsLiked] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [showLikers, setShowLikers] = useState(false);
-  const [likers, setLikers] = useState([]); 
+  const [likers, setLikers] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
   const userData = JSON.parse(localStorage.getItem('user'));
   const accessToken = userData ? userData.access : null;
   const navigate = useNavigate();
@@ -109,6 +111,14 @@ const ResourcePage = () => {
     return formatDistanceToNow(new Date(time), { addSuffix: true });
   };
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
     <Header/>
@@ -144,7 +154,7 @@ const ResourcePage = () => {
               <p>{resource.fileMetadata?.type}</p>
               <p>{resource.fileMetadata?.size} MB</p>
             </div>
-            <button className="download-button" onClick={() => window.open(resource.file, '_blank')}>Download</button>
+            <button className="download-button" onClick={openModal}>Download</button>
           </div>
         )}
         {resource && resource.photo && (
@@ -192,6 +202,7 @@ const ResourcePage = () => {
       <LikeCommentButtons likesCount={resource ? resource.likes_count : 0} commentsCount={resource ? resource.comments_count : 0} />
     </div>
     <Footer/>
+    <DownloadModal isOpen={isModalOpen} onClose={closeModal} fileUrl={resource?.file} />
     </>
   );
 };

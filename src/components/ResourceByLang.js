@@ -5,7 +5,6 @@ import '../styles/ResourceList.css';
 import { FallingLines } from 'react-loader-spinner';
 import LookupModal from './LookupModal';
 
-
 const ResourceByLang = ({ languageId }) => { 
   const [resources, setResources] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -15,7 +14,11 @@ const ResourceByLang = ({ languageId }) => {
     const fetchResources = async () => {
       try {
         const resourcesData = await getResourcesByLanguage(languageId);
-        setResources(resourcesData);
+
+        // Sort resources by date_shared in descending order
+        const sortedResources = resourcesData.sort((a, b) => new Date(b.date_shared) - new Date(a.date_shared));
+
+        setResources(sortedResources);
         setIsLoading(false);
       } catch (error) {
         console.error('Error fetching resources:', error.message);
@@ -25,6 +28,7 @@ const ResourceByLang = ({ languageId }) => {
 
     fetchResources();
   }, [languageId]);
+
   const handleTopicClick = (topic) => {
     setSelectedTopic(topic);
   };
@@ -32,6 +36,7 @@ const ResourceByLang = ({ languageId }) => {
   const handleCloseModal = () => {
     setSelectedTopic(null);
   };
+
   if (isLoading) {
     return (
       <div className="resource-list-loading">
@@ -44,7 +49,7 @@ const ResourceByLang = ({ languageId }) => {
     <div className="resource-list-container">
       <div className="resource-list">
         {resources.map((resource) => (
-         <ResourceCard key={resource.id} resource={resource} onTopicClick={handleTopicClick}/>
+          <ResourceCard key={resource.id} resource={resource} onTopicClick={handleTopicClick}/>
         ))}
       </div>
       {selectedTopic && <LookupModal topic={selectedTopic} onClose={handleCloseModal} showModal={true} />}

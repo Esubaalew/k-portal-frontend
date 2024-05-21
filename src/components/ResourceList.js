@@ -20,6 +20,7 @@ const ResourceList = () => {
         if (accessToken) {
           const loggedInUser = await getLoggedInUser(accessToken);
           const followingUsers = await getUserFollowing(loggedInUser.id, accessToken);
+         
           const promises = followingUsers.map(async (follow) => {
             const followedUser = follow.followed_user;
             const followedUserDetails = await getUserById(followedUser, accessToken);
@@ -32,7 +33,11 @@ const ResourceList = () => {
           });
           const allResources = await Promise.all(resourcesPromises);
           const mergedResources = allResources.reduce((acc, curr) => acc.concat(curr), []);
-          setResources(mergedResources);
+
+        
+          const sortedResources = mergedResources.sort((a, b) => new Date(b.date_shared) - new Date(a.date_shared));
+          
+          setResources(sortedResources);
         }
         setIsLoading(false);
       } catch (error) {

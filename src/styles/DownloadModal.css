@@ -1,0 +1,39 @@
+.modall-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-contentt {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+  }
+  
+  .downloadd-button, .close-button {
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .downloadd-button {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .closee-button {
+    background-color: #6c757d;
+    color: white;
+    margin-left: 10px;
+  }
+  

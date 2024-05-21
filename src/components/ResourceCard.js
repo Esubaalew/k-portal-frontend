@@ -1,3 +1,4 @@
+// ResourceCard.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
@@ -8,8 +9,9 @@ import LookupModal from './LookupModal';
 import { getUserById } from '../API/users';
 import { getLoggedInUser } from '../API/auth';
 import { getMetadataForResource, likeResource, getResourceById, getLikesForResource, unlikeResource } from '../API/resources';
-import {  getCommentsForResource } from '../API/likeC';
+import { getCommentsForResource } from '../API/likeC';
 import { addComment } from '../API/comments';
+import DownloadModal from './DownloadModal';
 
 const ResourceCard = ({ resource, onTopicClick }) => {
   const { id, owner, caption, url, file, photo, language_name, topic, date_shared, date_modified, comments_count } = resource;
@@ -28,6 +30,7 @@ const ResourceCard = ({ resource, onTopicClick }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [showComments, setShowComments] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
 
   useEffect(() => {
     const fetchOwnerData = async () => {
@@ -188,6 +191,14 @@ const ResourceCard = ({ resource, onTopicClick }) => {
     }
   };
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   const handleToggleComments = () => {
     setShowComments(!showComments);
   };
@@ -203,20 +214,20 @@ const ResourceCard = ({ resource, onTopicClick }) => {
         console.error('Comment cannot be empty.');
         return;
       }
-  
+
       if (!id || !accessToken || !loggedInUser || !loggedInUser.id) {
         console.error('Invalid data to submit comment.');
         return;
       }
-  
+
       console.log('Posting comment:', newComment, 'Resource ID:', id, 'User ID:', loggedInUser.id);
-  
+
       const commentData = {
         resource: id, // The ID of the resource
         user: loggedInUser.id, // The ID of the user making the comment
         comment: newComment.trim() // The actual comment text
       };
-  
+
       await addComment(commentData, accessToken);
       setNewComment('');
       const updatedComments = await getCommentsForResource(id, accessToken);
@@ -225,9 +236,6 @@ const ResourceCard = ({ resource, onTopicClick }) => {
       console.error('Error posting comment:', error.message);
     }
   };
-  
-  
-
 
   return (
     <div className="resource-card">
@@ -261,11 +269,11 @@ const ResourceCard = ({ resource, onTopicClick }) => {
         {file && (
           <div className="file-info">
             <div className="file-metadata">
-              <p> {truncateFileName(fileMetadata?.title || '')}</p>
+              <p>{truncateFileName(fileMetadata?.title || '')}</p>
               <p>{fileMetadata?.type}</p>
               <p>{fileMetadata?.size} MB</p>
             </div>
-            <button className="download-button" onClick={() => window.open(file, '_blank')}>Download</button>
+            <button className="download-button" onClick={openModal}>Download</button>
           </div>
         )}
         {photo && (
@@ -319,7 +327,7 @@ const ResourceCard = ({ resource, onTopicClick }) => {
         isLiked={isLiked}
         onComment={() => setShowComments(!showComments)}
       />
-         <button onClick={handleToggleComments}>
+      <button onClick={handleToggleComments}>
         {showComments ? 'Hide Comments' : 'Show Comments'}
       </button>
       {showComments && (
@@ -346,6 +354,7 @@ const ResourceCard = ({ resource, onTopicClick }) => {
         </div>
       )}
       {showModal && <LookupModal topic={topic} onClose={() => setShowModal(false)} />}
+      <DownloadModal isOpen={isModalOpen} onClose={closeModal} fileUrl={resource?.file} />
     </div>
   );
 };
