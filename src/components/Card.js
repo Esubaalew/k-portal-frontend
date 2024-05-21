@@ -53,7 +53,7 @@ function Card({ id, name, shorty, description })  {
           </div>
           <p className="card-description">{description}</p>
           <div className="learn-more-container">
-          <Link to={`/resources/language/${id}`} className="learn-more">
+          <Link to={`/in`} className="learn-more">
           Learn More
         </Link>
           </div>
