@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { getGroups, getAllPrivateChats } from '../API/msg';
 import { useNavigate } from 'react-router-dom';
 import '../styles/ChatList.css';
+import Footer from './Footer';
+import Header from './Header';
 
 const ChatList = () => {
     const [groups, setGroups] = useState([]);
@@ -55,6 +57,8 @@ const ChatList = () => {
     if (error) return <p>Error: {error}</p>;
 
     return (
+        <>
+    <Header/>
         <div className="chat-list-container">
             <div className="chat-list-section">
                 <div className="chat-list-header">
@@ -103,6 +107,8 @@ const ChatList = () => {
                 )}
             </div>
         </div>
+        <Footer/>
+        </>
     );
 };
 

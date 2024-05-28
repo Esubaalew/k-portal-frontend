@@ -3,6 +3,8 @@ import { getGroupMessages, sendMessage } from '../API/msg';
 import ChatWindow from './ChatWindow';
 import { useParams } from 'react-router-dom';
 import { getUserById } from '../API/users';
+import Header from './Header';
+import Footer from './Footer';
 
 const GroupChat = () => {
     const { groupId } = useParams();
@@ -48,6 +50,8 @@ const GroupChat = () => {
     if (error) return <p>Error: {error}</p>;
 
     return (
+        <>
+    <Header/>
         <div className='private-chat-container'>
             <ChatWindow 
                 messages={messages} 
@@ -55,6 +59,8 @@ const GroupChat = () => {
                 userDetails={userDetails} 
             />
         </div>
+        <Footer/>
+        </>
     );
 };
 

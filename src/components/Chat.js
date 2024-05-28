@@ -23,11 +23,11 @@ function Chat() {
     };
 
     fetchAccessToken();
-  }, []); // Run effect only once to fetch access token
+  }, []); 
 
   useEffect(() => {
     if (accessToken) {
-      // Fetch logged-in user's details using the API
+    
       getLoggedInUser(accessToken)
         .then((userData) => {
           setUser(userData);
@@ -37,11 +37,11 @@ function Chat() {
           // Handle error gracefully (e.g., display an error message or redirect to login)
         });
     }
-  }, [accessToken]); // Re-fetch user details if access token changes
+  }, [accessToken]); 
 
   useEffect(() => {
     if (accessToken) {
-      // Function to connect to WebSocket server
+   
       const socket = new WebSocket('ws://localhost:8000/ws/chat/1/', [], {
         headers: {
           Authorization: `Bearer ${accessToken}`, // Include space before access token

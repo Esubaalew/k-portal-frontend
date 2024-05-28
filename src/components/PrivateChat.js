@@ -4,6 +4,8 @@ import { getUserById } from '../API/users';
 import ChatWindow from './ChatWindow';
 import { useParams } from 'react-router-dom'; 
 import '../styles/PrivateChat.css'; 
+import Header from './Header';
+import Footer from './Footer';
 
 const PrivateChat = () => {
     const { userId } = useParams();
@@ -55,6 +57,9 @@ const PrivateChat = () => {
     if (error) return <p>Error: {error}</p>;
 
     return (
+        <>
+        <Header />
+       
         <div className="private-chat-container">
             <ChatWindow 
                 messages={messages} 
@@ -62,6 +67,8 @@ const PrivateChat = () => {
                 userDetails={userDetails} 
             />
         </div>
+        <Footer />
+        </>
     );
 };
 

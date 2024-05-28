@@ -5,6 +5,8 @@
     background-color: #f4f6f8;
     font-family: 'Arial', sans-serif;
     overflow: hidden;
+    margin-top: 100px;
+    margin-bottom: 100px;
 }
 
 .chat-list-section {
