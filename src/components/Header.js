@@ -1,7 +1,7 @@
 // Header.js
 import React, { useState, useEffect, Suspense } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLaptopCode, faUsers, faCodeBranch, faChartLine  } from '@fortawesome/free-solid-svg-icons';
+import { faLaptopCode, faUsers, faCodeBranch, faChartLine, faComments, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Header.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { getLoggedInUser } from '../API/auth';
@@ -64,11 +64,23 @@ function Header() {
                 </Link>
               </li>
               <li>
-              <Link to="/analysis" className="nav-icon">
-        <FontAwesomeIcon icon={faChartLine} />
-        <span className="nav-text"> Analysis</span>
-      </Link>
-                </li>
+                <Link to="/analysis" className="nav-icon">
+                  <FontAwesomeIcon icon={faChartLine} />
+                  <span className="nav-text"> Analysis</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/chat" className="nav-icon">
+                  <FontAwesomeIcon icon={faComments} />
+                  <span className="nav-text"> Chat</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/help" className="nav-icon">
+                  <FontAwesomeIcon icon={faQuestionCircle} />
+                  <span className="nav-text"> Help</span>
+                </Link>
+              </li>
             </ul>
           </nav>
         </>
