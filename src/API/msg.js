@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const domain = 'http://localhost:8000/';
+// const domain = 'http://localhost:8000/';
+const domain = 'https://portal.esube.com.et/';
 
 // Function to GET GROUPS
 
