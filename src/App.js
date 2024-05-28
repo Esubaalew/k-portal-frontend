@@ -13,7 +13,11 @@ import MakePass from './components/MakePass';
 import Repos from './components/Repos';
 import ResourceByLang from './components/ResourceByLang';
 import Analysis from './components/Analysis';
-import Chat from './components/Chat';
+import GroupChat from './components/GroupChat';
+import ChatList from './components/ChatList';
+import CreatePrivateChat from './components/CreatePrivateChat';
+import CreateGroupChat from './components/CreateGroupChat';
+import PrivateChat from './components/PrivateChat';
 
 function App() {
   return (
@@ -29,11 +33,16 @@ function App() {
         <Route path="/resource/:id" element={<ResourcePage />} />
         <Route path='/password-reset-confirm/:uidb64/:token' element={<MakePass />} />
         <Route path='/resources/language/:languageId' element={<ResourceByLang />} />
-        <Route path='/chat' element={<Chat />}/>
+        <Route path='/chat' element={<ChatList />}/>
+        <Route path='/group-chat/:groupId' element={<GroupChat />} />
+        <Route path='/create-private-chat' element={<CreatePrivateChat />} />
+        <Route path='/create-group-chat' element={<CreateGroupChat />} />
+        <Route path='/private-chat/:userId' element={<PrivateChat />} />
         <Route path='/analysis' element={<Analysis />} />
         <Route path='/repos' element={<Repos />} />
         <Route path='/reset' element={<Reset />} />
         <Route path="*" element={<NotFound />} />
+        
       </Routes>
     </Router>
   );
