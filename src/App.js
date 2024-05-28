@@ -18,6 +18,7 @@ import ChatList from './components/ChatList';
 import CreatePrivateChat from './components/CreatePrivateChat';
 import CreateGroupChat from './components/CreateGroupChat';
 import PrivateChat from './components/PrivateChat';
+import HelpCenter from './components/HelpCenter';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
         <Route path='/create-private-chat' element={<CreatePrivateChat />} />
         <Route path='/create-group-chat' element={<CreateGroupChat />} />
         <Route path='/private-chat/:userId' element={<PrivateChat />} />
+        <Route path='/help' element={<HelpCenter />} />
         <Route path='/analysis' element={<Analysis />} />
         <Route path='/repos' element={<Repos />} />
         <Route path='/reset' element={<Reset />} />

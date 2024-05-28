@@ -1,0 +1,119 @@
+[
+    {
+      "category": "Using the App",
+      "questions": [
+        {
+          "question": "How to navigate the app?",
+          "answer": "Use the menu bar at the bottom to access different sections. For example:\n1. Home: View the main feed.\n2. Profile: Access your profile page.\n3. Notifications: See recent notifications.\n4. Messages: Read and send messages.\n5. Settings: Customize your app settings."
+        },
+        {
+          "question": "How to customize my profile?",
+          "answer": "Go to 'Profile Settings' and click on 'Edit Profile'. Then:\n1. Click on your profile picture to change it.\n2. Update your bio and personal information.\n3. Click 'Save' to apply the changes."
+        },
+        {
+          "question": "How to follow a user?",
+          "answer": "To follow a user:\n1. Visit their profile.\n2. Click the 'Follow' button.\n3. You will start receiving updates from them."
+        },
+        {
+          "question": "How to like a post?",
+          "answer": "To like a post:\n1. Navigate to the post you want to like.\n2. Click the 'Like' button below the post."
+        },
+        {
+          "question": "How to comment on a post?",
+          "answer": "To comment on a post:\n1. Navigate to the post you want to comment on.\n2. Click the 'Comment' button.\n3. Type your comment and press 'Enter' or click 'Post'."
+        },
+        {
+          "question": "How to share a post?",
+          "answer": "To share a post:\n1. Click the 'Share' button below the post.\n2. Choose where you want to share it (e.g., your feed, a friend's timeline).\n3. Add any additional comments and click 'Share'."
+        }
+      ]
+    },
+    {
+      "category": "Managing Your Account",
+      "questions": [
+        {
+          "question": "How to change my name?",
+          "answer": "Go to Account Settings and click on 'Edit Name'. Then:\n1. Enter your new name.\n2. Click 'Save' to apply the changes."
+        },
+        {
+          "question": "How to manage notifications?",
+          "answer": "Go to Account Settings and click on 'Notifications'. Then:\n1. Choose which notifications you want to receive.\n2. Toggle the switches to enable or disable notifications."
+        },
+        {
+          "question": "How to reset my password?",
+          "answer": "To reset your password:\n1. Go to the login page and click 'Forgot Password?'.\n2. Enter your email address.\n3. Check your email for a password reset link.\n4. Click the link and follow the instructions to set a new password."
+        },
+        {
+          "question": "How to deactivate my account?",
+          "answer": "To deactivate your account:\n1. Go to Account Settings.\n2. Scroll down to 'Deactivate Account'.\n3. Click 'Deactivate' and follow the prompts."
+        },
+        {
+          "question": "How to delete my account?",
+          "answer": "To delete your account:\n1. Go to Account Settings.\n2. Scroll down to 'Delete Account'.\n3. Click 'Delete' and follow the prompts. Note: This action is irreversible."
+        },
+        {
+          "question": "How to update my email address?",
+          "answer": "To update your email address:\n1. Go to Account Settings.\n2. Click on 'Edit Email'.\n3. Enter your new email address.\n4. Click 'Save' to apply the changes."
+        }
+      ]
+    },
+    {
+      "category": "Privacy, Safety, and Security",
+      "questions": [
+        {
+          "question": "How to secure my account?",
+          "answer": "Enable two-factor authentication in the security settings:\n1. Go to Account Settings.\n2. Click on 'Security' and then 'Two-Factor Authentication'.\n3. Follow the instructions to enable two-factor authentication."
+        },
+        {
+          "question": "How to report a suspicious activity?",
+          "answer": "To report a suspicious activity:\n1. Go to the 'Help' section.\n2. Click on 'Report a Problem'.\n3. Select 'Suspicious Activity' and provide the required details.\n4. Click 'Submit'."
+        },
+        {
+          "question": "How to block a user?",
+          "answer": "To block a user:\n1. Go to the profile of the user you want to block.\n2. Click the three dots (menu) in the top right corner.\n3. Select 'Block' and confirm."
+        },
+        {
+          "question": "How to adjust privacy settings?",
+          "answer": "To adjust privacy settings:\n1. Go to Account Settings.\n2. Click on 'Privacy'.\n3. Adjust who can see your posts, who can contact you, and other privacy settings."
+        },
+        {
+          "question": "How to report harassment?",
+          "answer": "To report harassment:\n1. Go to the profile of the person harassing you.\n2. Click the three dots (menu) in the top right corner.\n3. Select 'Report' and follow the prompts."
+        },
+        {
+          "question": "How to set up a secure password?",
+          "answer": "To set up a secure password:\n1. Use a combination of letters, numbers, and special characters.\n2. Avoid using easily guessable information like your name or birthday.\n3. Make your password at least 8 characters long.\n4. Regularly update your password."
+        }
+      ]
+    },
+    {
+      "category": "Policies and Reporting",
+      "questions": [
+        {
+          "question": "What are the community guidelines?",
+          "answer": "Our community guidelines are available in the 'Policies' section. They include:\n1. Be respectful to others.\n2. Do not post harmful or illegal content.\n3. Follow all applicable laws."
+        },
+        {
+          "question": "How to report a user?",
+          "answer": "To report a user:\n1. Click on the user's profile.\n2. Select 'Report User' from the menu.\n3. Choose the reason for reporting and provide any additional details.\n4. Click 'Submit'."
+        },
+        {
+          "question": "How to report inappropriate content?",
+          "answer": "To report inappropriate content:\n1. Click the three dots (menu) on the post.\n2. Select 'Report Post'.\n3. Choose the reason for reporting and provide any additional details.\n4. Click 'Submit'."
+        },
+        {
+          "question": "How to appeal a ban?",
+          "answer": "To appeal a ban:\n1. Go to the 'Help' section.\n2. Click on 'Appeal a Ban'.\n3. Provide the required information and reason for your appeal.\n4. Click 'Submit'."
+        },
+        {
+          "question": "How to understand the terms of service?",
+          "answer": "The terms of service outline the rules and regulations for using the app. To understand them:\n1. Go to the 'Policies' section.\n2. Click on 'Terms of Service'.\n3. Read through the document carefully.\n4. Contact support if you have any questions."
+        },
+        {
+          "question": "How to find the privacy policy?",
+          "answer": "Our privacy policy explains how we handle your data. To find it:\n1. Go to the 'Policies' section.\n2. Click on 'Privacy Policy'.\n3. Read through the document carefully."
+        }
+      ]
+    }
+  ]
+  
